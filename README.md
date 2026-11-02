@@ -1,0 +1,1 @@
+Buraya proje öneri formundaki *tüm bilgileri* tekrar yazabilirsin.
