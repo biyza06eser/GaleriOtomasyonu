@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesajlar | Galeri Otomasyonu</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            background: #f3f5f9;
+            color: #17233d;
+        }
+
+        .mesaj-kart {
+            max-width: 780px;
+            margin: 35px auto;
+            background: #fff;
+            border: 1px solid #e5e9f1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 12px 35px rgba(23, 35, 61, .09);
+        }
+
+        .mesaj-baslik {
+            background: linear-gradient(135deg, #17233d, #293d60);
+            color: white;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .mesaj-avatar {
+            width: 52px;
+            height: 52px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #c9a45c;
+            color: #17233d;
+            font-size: 25px;
+        }
+
+        .mesaj-baslik h2 {
+            margin: 0 0 7px;
+            font-size: 21px;
+        }
+
+        .mesaj-baslik p {
+            margin: 0;
+            color: #d9dfeb;
+            font-size: 13px;
+        }
+
+        .mesaj-durum {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: rgba(255,255,255,.12);
+            color: #f3dca9;
+            font-size: 11px;
+        }
+
+        .mesaj-listesi {
+            min-height: 320px;
+            max-height: 460px;
+            overflow-y: auto;
+            padding: 25px;
+            background-color: #f8f9fc;
+            background-image: radial-gradient(#e5e9f1 .7px, transparent .7px);
+            background-size: 17px 17px;
+        }
+
+        .mesaj-bos {
+            max-width: 300px;
+            margin: 75px auto;
+            text-align: center;
+            color: #788398;
+            line-height: 1.8;
+        }
+
+        .mesaj-bos-ikon {
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+
+        .mesaj {
+            width: fit-content;
+            max-width: 78%;
+            padding: 13px 16px;
+            margin-bottom: 16px;
+            border-radius: 16px;
+            line-height: 1.65;
+            overflow-wrap: anywhere;
+            box-shadow: 0 3px 9px rgba(23,35,61,.05);
+        }
+
+        .giden {
+            margin-left: auto;
+            background: #17233d;
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .gelen {
+            margin-right: auto;
+            background: white;
+            color: #26344d;
+            border: 1px solid #e5e9f1;
+            border-bottom-left-radius: 4px;
+        }
+
+        .mesaj small {
+            display: block;
+            margin-top: 7px;
+            font-size: 10px;
+            text-align: right;
+            color: #aab3c3;
+        }
+
+        .gelen small {
+            color: #8993a5;
+        }
+
+        .mesaj-formu {
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #edf0f5;
+        }
+
+        .mesaj-formu textarea {
+            flex: 1;
+            min-width: 0;
+            min-height: 48px;
+            max-height: 140px;
+            padding: 14px 16px;
+            border: 1px solid #dfe4ed;
+            border-radius: 14px;
+            resize: vertical;
+            background: #f8f9fc;
+            color: #17233d;
+            font: inherit;
+            outline: none;
+            transition: .2s;
+        }
+
+        .mesaj-formu textarea:focus {
+            border-color: #c9a45c;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(201,164,92,.13);
+        }
+
+        .mesaj-formu button {
+            min-height: 48px;
+            padding: 0 22px;
+            background: #c9a45c;
+            color: #17233d;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .mesaj-formu button:hover {
+            background: #b48b3d;
+            transform: translateY(-1px);
+        }
+
+        .mesaj-uyari {
+            margin: 0;
+            padding: 0 20px 18px;
+            color: #8993a5;
+            font-size: 11px;
+            line-height: 1.6;
+            background: white;
+        }
+
+        .mesaj-geri-alan {
+            max-width: 780px;
+            margin: 0 auto 35px;
+            padding: 0 5px;
+        }
+
+        .mesaj-geri {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 16px;
+            color: #17233d;
+            background: white;
+            border: 1px solid #e5e9f1;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            transition: .2s;
+        }
+
+        .mesaj-geri:hover {
+            border-color: #c9a45c;
+            color: #98712a;
+        }
+
+        @media (max-width: 600px) {
+            .mesaj-kart {
+                margin: 20px 12px;
+                border-radius: 16px;
+            }
+
+            .mesaj-baslik {
+                padding: 20px 16px;
+            }
+
+            .mesaj-baslik h2 {
+                font-size: 17px;
+            }
+
+            .mesaj-listesi {
+                min-height: 280px;
+                padding: 17px 12px;
+            }
+
+            .mesaj {
+                max-width: 88%;
+            }
+
+            .mesaj-formu {
+                padding: 13px;
+                gap: 8px;
+            }
+
+            .mesaj-formu textarea {
+                padding: 12px;
+            }
+
+            .mesaj-formu button {
+                padding: 0 14px;
+            }
+
+            .mesaj-geri-alan {
+                margin: 0 12px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>MESAJLAR</h1>
+
+    <nav>
+        <a href="index.html">Ana Sayfa</a> |
+        <a href="araclar.html">Araçlar</a>
+    </nav>
+
+    <main class="mesaj-kart">
+        <header class="mesaj-baslik">
+            <div class="mesaj-avatar">✉</div>
+            <div>
+                <h2 id="aracBaslik">Araç hakkında mesajlaşma</h2>
+                <p>Galeri iletişim merkezi</p>
+                <span class="mesaj-durum">● Mesajlaşma ekranı</span>
+            </div>
+        </header>
+
+        <section class="mesaj-listesi" id="mesajListesi"
+                 aria-live="polite"></section>
+
+        <form class="mesaj-formu" id="mesajFormu">
+            <textarea id="mesajMetni"
+                      placeholder="Mesajını buraya yaz..."
+                      maxlength="2000"
+                      required></textarea>
+            <button type="submit">Gönder ➤</button>
+        </form>
+
+        <p class="mesaj-uyari">
+            Bilgi: Bu demo mesajları yalnızca bu tarayıcıda saklar.
+            Gerçek kullanıcılar arasında canlı mesajlaşma için sunucu
+            ve veritabanı bağlantısı gerekir.
+        </p>
+    </main>
+
+    <div class="mesaj-geri-alan">
+        <a class="mesaj-geri" id="aracaDon" href="araclar.html">
+            ← Araçlara dön
+        </a>
+    </div>
+
+    <script>
+        const parametreler = new URLSearchParams(location.search);
+        const aracId = parametreler.get("id") || "genel";
+        const anahtar = "aracMesajlari";
+
+        const mesajListesi = document.getElementById("mesajListesi");
+        const mesajFormu = document.getElementById("mesajFormu");
+        const mesajMetni = document.getElementById("mesajMetni");
+
+        function aracBilgisiniGetir() {
+            const araclar =
+                JSON.parse(localStorage.getItem("araclar")) || [];
+
+            return araclar.find(function(arac) {
+                return String(arac.id) === String(aracId);
+            });
+        }
+
+        function mesajlariGetir() {
+            const tumMesajlar =
+                JSON.parse(localStorage.getItem(anahtar)) || {};
+
+            return tumMesajlar[String(aracId)] || [];
+        }
+
+        function mesajlariGoster() {
+            mesajListesi.replaceChildren();
+
+            const mesajlar = mesajlariGetir();
+
+            if (mesajlar.length === 0) {
+                const bos = document.createElement("div");
+                bos.className = "mesaj-bos";
+
+                const ikon = document.createElement("div");
+                ikon.className = "mesaj-bos-ikon";
+                ikon.textContent = "💬";
+
+                const yazi = document.createElement("p");
+                yazi.textContent =
+                    "Henüz mesaj yok. İlk mesajını göndererek konuşmayı başlat!";
+
+                bos.append(ikon, yazi);
+                mesajListesi.appendChild(bos);
+                return;
+            }
+
+            mesajlar.forEach(function(mesaj) {
+                const kutu = document.createElement("div");
+
+                kutu.className = "mesaj " +
+                    (mesaj.yon === "giden" ? "giden" : "gelen");
+
+                const metin = document.createElement("div");
+                metin.textContent = mesaj.metin;
+
+                const tarih = document.createElement("small");
+                tarih.textContent = mesaj.tarih;
+
+                kutu.append(metin, tarih);
+                mesajListesi.appendChild(kutu);
+            });
+
+            mesajListesi.scrollTop = mesajListesi.scrollHeight;
+        }
+
+        const arac = aracBilgisiniGetir();
+
+        if (arac) {
+            document.getElementById("aracBaslik").textContent =
+                arac.marka + " " + arac.model + " hakkında";
+
+            document.getElementById("aracaDon").href =
+                "arac-detay.html?id=" + encodeURIComponent(aracId);
+        }
+
+        mesajFormu.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const metin = mesajMetni.value.trim();
+            if (!metin) return;
+
+            try {
+                const tumMesajlar =
+                    JSON.parse(localStorage.getItem(anahtar)) || {};
+
+                const mesajlar = tumMesajlar[String(aracId)] || [];
+
+                mesajlar.push({
+                    metin: metin,
+                    yon: "giden",
+                    tarih: new Date().toLocaleString("tr-TR")
+                });
+
+                tumMesajlar[String(aracId)] = mesajlar;
+
+                localStorage.setItem(
+                    anahtar,
+                    JSON.stringify(tumMesajlar)
+                );
+
+                mesajFormu.reset();
+                mesajlariGoster();
+            } catch (hata) {
+                alert(
+                    "Mesaj kaydedilemedi. Tarayıcı depolama alanını kontrol et."
+                );
+            }
+        });
+
+        mesajlariGoster();
+    </script>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiralamalar | Galeri Otomasyonu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="ana-header">
+    <h1>KİRALAMA YÖNETİMİ</h1>
+
+    <nav>
+        <a href="index.html">Ana Sayfa</a> |
+        <a href="araclar.html">Araçlar</a> |
+        <a href="arac-ekle.html">Araç Ekle</a> |
+        <a href="musteriler.html">Müşteriler</a> |
+        <a href="satislar.html">Satışlar</a> |
+        <a href="aboneler.html">Aboneler</a> |
+        <a href="kiralamalar.html">Kiralamalar</a>
+    </nav>
+    </header>
+
+    <section class="arac-bolumu">
+        <h2>Kiralama Kayıtları</h2>
+        <p>Araç kiralama işlemlerini bu sayfadan yöneteceğiz.</p>
+
+        <h3>Yeni Kiralama Ekle</h3>
+
+        <form id="kiralamaFormu">
+
+            <label for="kiralamaMusteri">Müşteri:</label>
+            <select id="kiralamaMusteri" required>
+                <option value="">Müşteri seç</option>
+            </select>
+
+            <br><br>
+
+            <label for="kiralamaArac">Araç:</label>
+            <select id="kiralamaArac" required>
+                <option value="">Araç seç</option>
+            </select>
+
+            <br><br>
+
+            <label for="baslangicTarihi">Kiralama Başlangıç Tarihi:</label>
+            <input type="date" id="baslangicTarihi" required>
+
+            <br><br>
+
+            <label for="bitisTarihi">Teslim Tarihi:</label>
+            <input type="date" id="bitisTarihi" required>
+
+            <br><br>
+
+            <label for="gunlukUcret">Günlük Kira Ücreti (TL):</label>
+            <input type="number" id="gunlukUcret"
+                   min="1" step="0.01" required
+                   placeholder="Örn. 2500">
+
+            <br><br>
+
+            <p>
+                <strong>Toplam Kira Ücreti:</strong>
+                <span id="toplamUcret">0 TL</span>
+            </p>
+
+            <button type="submit">Kiralama Kaydet</button>
+        </form>
+
+        <p id="kiralamaMesaj"></p>
+
+        <h3>Kayıtlı Kiralamalar</h3>
+
+        <div id="kiralamaListesi">
+            Henüz kiralama kaydı bulunmuyor.
+        </div>
+    </section>
+
+    <script>
+        const kiralamaFormu = document.getElementById("kiralamaFormu");
+        const musteriSec = document.getElementById("kiralamaMusteri");
+        const aracSec = document.getElementById("kiralamaArac");
+        const baslangicInput = document.getElementById("baslangicTarihi");
+        const bitisInput = document.getElementById("bitisTarihi");
+        const gunlukInput = document.getElementById("gunlukUcret");
+        const toplamUcret = document.getElementById("toplamUcret");
+        const kiralamaListesi = document.getElementById("kiralamaListesi");
+
+        // Araçlar sayfasındaki örnek araçlar
+        const ornekAraclar = [
+            {
+                id: "ornek-0",
+                marka: "BMW",
+                model: "3 Serisi",
+                yil: 2022,
+                km: 35000,
+                fiyat: 1850000
+            },
+            {
+                id: "ornek-1",
+                marka: "Chevrolet",
+                model: "Camaro",
+                yil: 2021,
+                km: 28000,
+                fiyat: 2400000
+            },
+            {
+                id: "ornek-2",
+                marka: "Porsche",
+                model: "911",
+                yil: 2023,
+                km: 12000,
+                fiyat: 7500000
+            }
+        ];
+
+        function kayitlariGetir(anahtar) {
+            try {
+                return JSON.parse(localStorage.getItem(anahtar)) || [];
+            } catch (hata) {
+                return [];
+            }
+        }
+
+        function araclariGetir() {
+            return [...ornekAraclar, ...kayitlariGetir("araclar")];
+        }
+
+        function secenekleriDoldur() {
+
+function aracKiraUcretiniGetir() {
+    const secilenAracId = aracSec.value;
+
+    if (!secilenAracId) {
+        gunlukInput.value = "";
+        toplamiHesapla();
+        return;
+    }
+
+    const araclar = araclariGetir();
+
+    const arac = araclar.find(function(a) {
+        return String(a.id) === String(secilenAracId);
+    });
+
+    if (arac && Number(arac.gunlukKira) > 0) {
+        gunlukInput.value = Number(arac.gunlukKira);
+    } else {
+        gunlukInput.value = "";
+    }
+
+    toplamiHesapla();
+}
+
+aracSec.addEventListener("change", aracKiraUcretiniGetir);
+
+            const musteriler = kayitlariGetir("musteriler");
+            const araclar = araclariGetir();
+
+            musteriSec.innerHTML = '<option value="">Müşteri seç</option>';
+            aracSec.innerHTML = '<option value="">Araç seç</option>';
+
+            musteriler.forEach(function(musteri) {
+                const secenek = document.createElement("option");
+                secenek.value = String(musteri.id);
+                secenek.textContent = musteri.adSoyad;
+                musteriSec.appendChild(secenek);
+            });
+
+            araclar.forEach(function(arac) {
+                const secenek = document.createElement("option");
+                secenek.value = String(arac.id);
+                secenek.textContent =
+                    arac.marka + " " + arac.model + " (" + arac.yil + ")";
+                aracSec.appendChild(secenek);
+            });
+
+            if (musteriler.length === 0) {
+                musteriSec.innerHTML =
+                    '<option value="">Önce müşteri eklemelisin</option>';
+            }
+        }
+
+        function gunSayisiniHesapla() {
+            if (!baslangicInput.value || !bitisInput.value) {
+                return 0;
+            }
+
+            const baslangic = new Date(baslangicInput.value + "T00:00:00");
+            const bitis = new Date(bitisInput.value + "T00:00:00");
+
+            return Math.round((bitis - baslangic) / 86400000);
+        }
+
+        function toplamiHesapla() {
+            const gun = gunSayisiniHesapla();
+            const ucret = Number(gunlukInput.value);
+
+            if (gun < 0 || !Number.isFinite(ucret) || ucret <= 0) {
+                toplamUcret.textContent = "Tarihleri ve ücreti kontrol et";
+                return null;
+            }
+
+            if (gun === 0) {
+                toplamUcret.textContent = "En az 1 gün seçmelisin";
+                return null;
+            }
+
+            const toplam = gun * ucret;
+            toplamUcret.textContent = toplam.toLocaleString("tr-TR") + " TL";
+            return toplam;
+        }
+
+        baslangicInput.addEventListener("change", function() {
+            bitisInput.min = baslangicInput.value;
+            toplamiHesapla();
+        });
+
+        bitisInput.addEventListener("change", toplamiHesapla);
+        gunlukInput.addEventListener("input", toplamiHesapla);
+
+        function kiralamalariGoster() {
+            const kiralamalar = kayitlariGetir("kiralamalar");
+            kiralamaListesi.innerHTML = "";
+
+            if (kiralamalar.length === 0) {
+                kiralamaListesi.textContent =
+                    "Henüz kiralama kaydı bulunmuyor.";
+                return;
+            }
+
+            kiralamalar.forEach(function(kiralama) {
+                const kart = document.createElement("div");
+                kart.className = "arac-karti";
+
+                const baslik = document.createElement("h3");
+                baslik.textContent = kiralama.aracAdi;
+
+                const musteri = document.createElement("p");
+                musteri.textContent = "Müşteri: " + kiralama.musteriAdi;
+
+                const tarihler = document.createElement("p");
+                tarihler.textContent =
+                    "Kiralama: " + kiralama.baslangic +
+                    " — Teslim: " + kiralama.bitis;
+
+                const ucret = document.createElement("p");
+                ucret.textContent =
+                    "Günlük ücret: " +
+                    Number(kiralama.gunlukUcret).toLocaleString("tr-TR") +
+                    " TL";
+
+                const toplam = document.createElement("p");
+                toplam.textContent =
+                    "Toplam: " +
+                    Number(kiralama.toplamUcret).toLocaleString("tr-TR") +
+                    " TL";
+
+                const durum = document.createElement("p");
+                const bugun = new Date();
+                bugun.setHours(0, 0, 0, 0);
+                const baslangic = new Date(kiralama.baslangic + "T00:00:00");
+                const bitis = new Date(kiralama.bitis + "T00:00:00");
+
+                if (bugun < baslangic) {
+                    durum.textContent = "Durum: Planlandı";
+                } else if (bugun < bitis) {
+                    durum.textContent = "Durum: Devam ediyor";
+                } else {
+                    durum.textContent = "Durum: Tamamlandı";
+                }
+
+                const silButonu = document.createElement("button");
+                silButonu.textContent = "Kiralamayı Sil";
+                silButonu.className = "sil-buton";
+
+                silButonu.addEventListener("click", function() {
+                    if (!confirm("Bu kiralama kaydını silmek istiyor musun?")) {
+                        return;
+                    }
+
+                    const kalanlar = kayitlariGetir("kiralamalar")
+                        .filter(function(k) {
+                            return k.id !== kiralama.id;
+                        });
+
+                    localStorage.setItem("kiralamalar", JSON.stringify(kalanlar));
+                    kiralamalariGoster();
+                });
+
+                kart.append(
+                    baslik, musteri, tarihler, ucret, toplam, durum, silButonu
+                );
+                kiralamaListesi.appendChild(kart);
+            });
+        }
+
+        kiralamaFormu.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const gun = gunSayisiniHesapla();
+            const toplam = toplamiHesapla();
+
+            if (gun <= 0 || toplam === null) {
+                alert("Lütfen geçerli tarihleri ve günlük ücreti gir.");
+                return;
+            }
+
+            const musteriler = kayitlariGetir("musteriler");
+            const araclar = araclariGetir();
+
+            const musteri = musteriler.find(function(m) {
+                return String(m.id) === musteriSec.value;
+            });
+
+            const arac = araclar.find(function(a) {
+                return String(a.id) === aracSec.value;
+            });
+
+            if (!musteri || !arac) {
+                alert("Lütfen kayıtlı bir müşteri ve araç seç.");
+                return;
+            }
+
+            const yeniKiralama = {
+                id: Date.now().toString(),
+                musteriId: String(musteri.id),
+                musteriAdi: musteri.adSoyad,
+                aracId: String(arac.id),
+                aracAdi: arac.marka + " " + arac.model,
+                baslangic: baslangicInput.value,
+                bitis: bitisInput.value,
+                gunlukUcret: Number(gunlukInput.value),
+                toplamUcret: toplam
+            };
+
+            const kiralamalar = kayitlariGetir("kiralamalar");
+
+// Aynı aracın kiralama tarihleri çakışıyor mu?
+const cakismaVar = kiralamalar.some(function(k) {
+    return (
+        String(k.aracId) === String(yeniKiralama.aracId) &&
+        yeniKiralama.baslangic < k.bitis &&
+        yeniKiralama.bitis > k.baslangic
+    );
+});
+
+// Çakışma varsa kaydetme
+if (cakismaVar) {
+    alert("Bu araç seçilen tarihlerde zaten kiralanmış!");
+    return;
+}
+
+// Çakışma yoksa kaydet
+kiralamalar.push(yeniKiralama);
+
+            try {
+                localStorage.setItem("kiralamalar", JSON.stringify(kiralamalar));
+            } catch (hata) {
+                alert("Kayıt alanı dolmuş olabilir.");
+                return;
+            }
+
+            kiralamaFormu.reset();
+            bitisInput.min = "";
+            toplamUcret.textContent = "0 TL";
+
+            document.getElementById("kiralamaMesaj").textContent =
+                "Kiralama başarıyla kaydedildi!";
+
+            kiralamalariGoster();
+        });
+
+        secenekleriDoldur();
+        kiralamalariGoster();
+    </script>
+
+</body>
+</html>

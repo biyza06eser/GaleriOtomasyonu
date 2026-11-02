@@ -1,0 +1,2120 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f5f8;
+    color: #222;
+}
+
+/* Üst başlık */
+h1 {
+    background-color: #101c2c;
+    color: white;
+    text-align: center;
+    padding: 30px 15px;
+    font-size: 32px;
+    letter-spacing: 2px;
+}
+
+/* Bölüm başlığı */
+h2 {
+    text-align: center;
+    margin: 35px 0 15px;
+    color: #152a43;
+}
+
+/* Açıklamalar */
+p {
+    text-align: center;
+    margin: 15px;
+    line-height: 1.7;
+    color: #555;
+}
+
+/* Menü */
+nav {
+    background-color: #1d3048;
+    padding: 18px 10px;
+    text-align: center;
+    margin-top: 25px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 12px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #e5b04b;
+}
+
+/* Mobil ekranlar */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 24px;
+    }
+
+    nav a {
+        display: inline-block;
+        margin: 8px;
+    }
+}
+
+.hero {
+    background-color: #ffffff;
+    margin: 35px auto;
+    padding: 50px 20px;
+    max-width: 1000px;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.hero h2 {
+    font-size: 30px;
+    margin: 0 0 15px;
+    color: #152a43;
+}
+
+.hero p {
+    margin-bottom: 25px;
+}
+
+.buton {
+    display: inline-block;
+    background-color: #d6a342;
+    color: #101c2c;
+    padding: 13px 25px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.buton:hover {
+    background-color: #bd8a2e;
+}
+
+.hero {
+    display: block;
+    background: linear-gradient(135deg, #101c2c, #304b68);
+    color: white;
+    min-height: 280px;
+    padding: 55px 20px;
+    margin: 30px auto;
+    max-width: 1100px;
+    text-align: center;
+    border-radius: 12px;
+}
+
+.hero h2 {
+    color: white;
+    font-size: 32px;
+    margin: 10px 0 20px;
+}
+
+.hero p {
+    color: #eeeeee;
+    margin-bottom: 25px;
+}
+
+.buton {
+    display: inline-block;
+    background-color: #e5b04b;
+    color: #101c2c;
+    padding: 14px 28px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.buton:hover {
+    background-color: #f4ca79;
+}
+
+.arac-bolumu {
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.arac-bolumu > h2 {
+    color: #152a43;
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.bolum-aciklama {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.arac-kartlari {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+}
+
+.arac-karti {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.arac-karti:hover {
+    transform: translateY(-5px);
+}
+
+.arac-karti img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+.arac-bilgi {
+    padding: 20px;
+}
+
+.arac-bilgi h3 {
+    color: #152a43;
+    margin-bottom: 12px;
+}
+
+.arac-bilgi p {
+    color: #666;
+    margin: 10px 0;
+}
+
+.arac-bilgi h4 {
+    color: #b88627;
+    font-size: 20px;
+    margin: 18px 0;
+}
+
+@media (max-width: 750px) {
+    .arac-kartlari {
+        grid-template-columns: 1fr;
+    }
+}
+
+.form-kutusu {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+}
+
+.form-kutusu h2 {
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+.form-kutusu label {
+    display: block;
+    margin: 15px 0 7px;
+    color: #152a43;
+    font-weight: bold;
+}
+
+.form-kutusu input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccd3dc;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.form-kutusu input:focus {
+    outline: 2px solid #d6a342;
+    border-color: #d6a342;
+}
+
+.form-buton {
+    width: 100%;
+    margin-top: 25px;
+    padding: 14px;
+    background-color: #152a43;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.form-buton:hover {
+    background-color: #254566;
+}
+
+#mesaj {
+    margin-top: 20px;
+    color: #267344;
+    text-align: center;
+}
+
+.sil-buton {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background-color: #c0392b;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.sil-buton:hover {
+    background-color: #922b21;
+}
+
+.form-kutusu input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #f3f5f8;
+    border: 1px solid #ccd3dc;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.arac-karti img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    display: block;
+}
+
+.arac-karti {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.arac-bilgi {
+    padding: 20px;
+}
+
+#arama {
+    display: block;
+    width: 90%;
+    max-width: 500px;
+    margin: 25px auto;
+    padding: 14px;
+    border: 1px solid #ccd3dc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+#arama:focus {
+    outline: 2px solid #e5b04b;
+}
+
+/* Araç arama alanı */
+#arama {
+    width: 100%;
+    max-width: 500px;
+    padding: 12px 15px;
+    margin: 15px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* Filtre alanı */
+.filtreler {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    padding: 20px;
+    margin: 15px 0 25px;
+    background-color: #f4f6f8;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+}
+
+/* Filtre başlığı */
+.filtreler h3 {
+    width: 100%;
+    margin: 0 0 5px;
+    color: #222;
+}
+
+/* Filtre etiketleri */
+.filtreler label {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Filtre kutuları */
+.filtreler select,
+.filtreler input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    background-color: white;
+    font-size: 14px;
+    max-width: 100%;
+}
+
+/* Filtre temizleme butonu */
+#filtreSifirla {
+    padding: 11px 16px;
+    border: none;
+    border-radius: 7px;
+    background-color: #263746;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#filtreSifirla:hover {
+    background-color: #40586b;
+}
+
+/* Telefon ekranlarına uyum */
+@media (max-width: 600px) {
+    .filtreler {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filtreler select,
+    .filtreler input,
+    #filtreSifirla {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+/* Araç kartlarının yerleşimi */
+.arac-kartlari {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+    margin-top: 25px;
+}
+
+/* Her bir araç kartı */
+.arac-karti {
+    background-color: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid #e5e5e5;
+}
+
+/* Fare kartın üzerine gelince */
+.arac-karti:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+}
+
+/* Araç fotoğrafları */
+.arac-karti img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Araç bilgileri */
+.arac-bilgi {
+    padding: 18px;
+}
+
+/* Marka ve model */
+.arac-bilgi h3 {
+    font-size: 21px;
+    color: #263746;
+    margin: 0 0 12px;
+}
+
+/* Yıl ve kilometre bilgileri */
+.arac-bilgi p {
+    font-size: 14px;
+    color: #666;
+    margin: 8px 0;
+}
+
+/* Araç fiyatı */
+.arac-bilgi h4 {
+    font-size: 22px;
+    color: #b22222;
+    margin: 16px 0 5px;
+}
+
+/* Araç silme butonu */
+.sil-buton {
+    background-color: #c0392b;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.sil-buton:hover {
+    background-color: #922b21;
+}
+
+/* Telefon ekranları */
+@media (max-width: 600px) {
+    .arac-kartlari {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .arac-karti img {
+        height: 220px;
+    }
+}
+
+/* Ana sayfa üst alanı */
+.ana-header {
+    background-color: #263746;
+    color: white;
+    padding: 20px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.ana-header h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.ana-header nav {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.ana-header nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.ana-header nav a:hover {
+    color: #f0c36d;
+}
+
+/* Büyük karşılama alanı */
+.ana-banner {
+    min-height: 400px;
+    padding: 50px 8%;
+    display: flex;
+    align-items: center;
+    color: white;
+    background: linear-gradient(120deg, #17232e, #526575);
+    box-sizing: border-box;
+}
+
+.ana-icerik {
+    max-width: 600px;
+}
+
+.ust-yazi {
+    color: #f0c36d;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.ana-icerik h2 {
+    font-size: clamp(36px, 5vw, 56px);
+    margin: 20px 0;
+}
+
+.ana-icerik p {
+    line-height: 1.8;
+    font-size: 17px;
+}
+
+/* Araçları incele butonu */
+.ana-buton {
+    display: inline-block;
+    background-color: #f0c36d;
+    color: #263746;
+    text-decoration: none;
+    padding: 14px 24px;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.ana-buton:hover {
+    background-color: #e2ad48;
+}
+
+/* Ana sayfa özellikleri */
+.ana-ozellikler {
+    padding: 45px 6%;
+    text-align: center;
+}
+
+.ana-ozellikler > h2 {
+    color: #263746;
+    margin-bottom: 30px;
+}
+
+.ozellik-kartlari {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.ozellik-karti {
+    padding: 25px 20px;
+    background-color: #f4f6f8;
+    border-radius: 12px;
+    border: 1px solid #e1e5e8;
+}
+
+.ozellik-karti h3 {
+    color: #263746;
+}
+
+.ozellik-karti p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Alt bilgi */
+.ana-footer {
+    text-align: center;
+    background-color: #263746;
+    color: white;
+    padding: 18px;
+}
+
+/* Telefon uyumu */
+@media (max-width: 600px) {
+    .ana-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .ana-header nav {
+        justify-content: center;
+    }
+
+    .ana-banner {
+        min-height: 350px;
+        padding: 35px 7%;
+    }
+}
+
+/* Müşteri formu */
+#musteriFormu {
+    max-width: 600px;
+    padding: 25px;
+    margin: 20px 0 35px;
+    background-color: #f4f6f8;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+}
+
+#musteriFormu label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #263746;
+}
+
+#musteriFormu input {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    font-size: 15px;
+}
+
+#musteriFormu button {
+    padding: 12px 20px;
+    background-color: #263746;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+#musteriFormu button:hover {
+    background-color: #40586b;
+}
+
+/* Müşteri listesi */
+#musteriListesi {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Müşteri kartları */
+#musteriListesi .arac-karti {
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#musteriListesi .arac-karti h3 {
+    margin-top: 0;
+    color: #263746;
+}
+
+#musteriListesi .arac-karti p {
+    overflow-wrap: anywhere;
+}
+
+/* ===== SATIŞLAR SAYFASI ===== */
+
+.satis-sayfasi {
+    max-width: 1100px;
+    margin: 35px auto;
+    padding: 25px;
+}
+
+.satis-baslik {
+    color: #172033;
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.satis-aciklama {
+    color: #64748b;
+    margin-bottom: 25px;
+}
+
+/* Satış formu kartı */
+
+#satisFormu {
+    background: #ffffff;
+    padding: 28px;
+    border-radius: 16px;
+    box-shadow: 0 6px 24px rgba(15, 23, 42, 0.08);
+    border: 1px solid #e5e7eb;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 35px;
+}
+
+#satisFormu label {
+    display: block;
+    color: #334155;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+#satisFormu input,
+#satisFormu select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    background: #f8fafc;
+    font-size: 15px;
+    color: #1e293b;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#satisFormu input:focus,
+#satisFormu select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    background: #ffffff;
+}
+
+/* Satış kaydet butonu */
+
+#satisFormu button,
+#satisFormu input[type="submit"] {
+    grid-column: 1 / -1;
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 9px;
+    background: #1d4ed8;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+#satisFormu button:hover,
+#satisFormu input[type="submit"]:hover {
+    background: #1e40af;
+    transform: translateY(-1px);
+}
+
+/* Satış kayıtları */
+
+#satisListesi {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+#satisListesi .arac-karti {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-left: 5px solid #2563eb;
+    border-radius: 13px;
+    padding: 22px;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#satisListesi .arac-karti:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+}
+
+#satisListesi .arac-karti h3 {
+    margin: 0 0 16px;
+    color: #172554;
+    font-size: 20px;
+}
+
+#satisListesi .arac-karti p {
+    color: #475569;
+    font-size: 14px;
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+/* Telefon ve küçük ekranlar */
+
+@media (max-width: 600px) {
+    .satis-sayfasi {
+        margin: 15px auto;
+        padding: 12px;
+    }
+
+    .satis-baslik {
+        font-size: 25px;
+    }
+
+    #satisFormu {
+        grid-template-columns: 1fr;
+        padding: 18px;
+        gap: 14px;
+    }
+
+    #satisFormu button,
+    #satisFormu input[type="submit"] {
+        grid-column: auto;
+    }
+}
+
+/* Satış formu hizalama düzeltmesi */
+
+#satisFormu {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+}
+
+#satisFormu label {
+    display: block;
+    width: 100%;
+    margin: 0 0 8px 0;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+#satisFormu input:not([type="submit"]),
+#satisFormu select {
+    display: block;
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#satisFormu button,
+#satisFormu input[type="submit"] {
+    display: block;
+    width: 100%;
+    margin: 8px 0 0;
+    box-sizing: border-box;
+}
+
+
+
+/* Satış kayıt formunu küçült ve ortala */
+#satisFormu {
+    width: 65%;
+    max-width: 700px;
+    margin: 0 auto 35px;
+    box-sizing: border-box;
+}
+
+/* Küçük ekranlarda taşmayı önle */
+@media (max-width: 600px) {
+    #satisFormu {
+        width: 100%;
+    }
+}
+
+/* Satış kayıt formunun boyutunu ve konumunu ayarla */
+#satisFormu {
+    width: 65%;
+    height: 50%;
+    margin: 0 auto 0 35px ;
+    box-sizing: border-box;
+    align-self: flex-end;
+}
+
+/* Satış formunu sola yasla ve dikey boyunu küçült */
+#satisFormu {
+    width: 65%;
+    height: auto;
+    margin: 0 auto 35px 0;
+    padding: 14px 20px;
+    gap: 8px;
+    align-self: flex-start;
+}
+
+/* Yazı ile kutu arasındaki boşluk */
+#satisFormu label {
+    margin-bottom: 4px;
+}
+
+/* Kutuların yüksekliği */
+#satisFormu input:not([type="submit"]),
+#satisFormu select {
+    padding: 8px 10px;
+    height: 38px;
+}
+
+/* Kaydet butonu */
+#satisFormu button,
+#satisFormu input[type="submit"] {
+    padding: 9px;
+    margin-top: 2px;
+    min-height: 38px;
+}
+
+@media (max-width: 600px) {
+    #satisFormu {
+        width: 100%;
+    }
+}
+
+/* Satışlar sayfasının arka planı */
+.satis-sayfasi {
+    background-color: #f5f5f5;
+}
+
+/* Satış Ekle formunun görünümü */
+#satisFormu {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 14px 20px;
+}
+
+/* Kaydet butonu */
+#satisFormu button,
+#satisFormu input[type="submit"] {
+    background-color: #2c3e50;
+    color: white;
+}
+
+
+
+/* Müşteri ekleme kutusu: Satış Ekle ile aynı görünüm */
+#musteriFormu {
+    width: 65%;
+    max-width: 700px;
+    height: auto;
+    margin: 0 auto 35px 0;
+    padding: 14px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+#musteriFormu label {
+    display: block;
+    margin-bottom: 4px;
+    text-align: left;
+}
+
+#musteriFormu input {
+    width: 100%;
+    height: 38px;
+    padding: 8px 10px;
+    box-sizing: border-box;
+}
+
+#musteriFormu button,
+#musteriFormu input[type="submit"] {
+    width: 100%;
+    min-height: 38px;
+    padding: 9px;
+    margin-top: 2px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+    #musteriFormu {
+        width: 100%;
+    }
+}
+
+/* Araç Ekle kutusu */
+.form-kutusu {
+    width: 65%;
+    max-width: 700px;
+    margin: 0 auto 35px 0;
+    padding: 14px 20px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+/* Araç ekleme formu */
+#aracForm {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+}
+
+#aracForm label {
+    display: block;
+    margin-bottom: 4px;
+    text-align: left;
+}
+
+#aracForm input:not([type="file"]) {
+    width: 100%;
+    height: 38px;
+    padding: 8px 10px;
+    box-sizing: border-box;
+}
+
+#aracForm input[type="file"] {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#aracForm button {
+    width: 100%;
+    min-height: 38px;
+    padding: 9px;
+    margin-top: 2px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+    .form-kutusu {
+        width: 100%;
+    }
+}
+
+/* Araç Ekle ve Müşteriler kutuları aynı görünümde */
+.form-kutusu,
+#musteriFormu {
+    width: 65%;
+    max-width: 700px;
+    margin: 0 auto 35px 0;
+    padding: 14px 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+/* Formların iç düzeni */
+#aracForm,
+#musteriFormu {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    box-sizing: border-box;
+}
+
+/* İki formdaki yazı ve kutular */
+#aracForm label,
+#musteriFormu label {
+    display: block;
+    margin-bottom: 4px;
+    text-align: left;
+}
+
+#aracForm input:not([type="file"]),
+#musteriFormu input {
+    width: 100%;
+    height: 38px;
+    padding: 8px 10px;
+    box-sizing: border-box;
+}
+
+#aracForm button,
+#musteriFormu button,
+#aracForm input[type="submit"],
+#musteriFormu input[type="submit"] {
+    width: 100%;
+    min-height: 38px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+    .form-kutusu,
+    #musteriFormu {
+        width: 100%;
+    }
+}
+/* Araç Ekle sayfası */
+.arac-ekle-sayfasi {
+    width: 100%;
+    padding: 10px 25px 30px;
+    box-sizing: border-box;
+}
+
+/* Başlık ve açıklama */
+.arac-ekle-baslik {
+    text-align: left;
+    margin: 0 0 20px 0;
+}
+
+.arac-ekle-baslik h2 {
+    margin: 0 0 8px;
+}
+
+.arac-ekle-baslik p {
+    margin: 0;
+    color: #666;
+}
+
+/* Form kutusu sağa ve yukarı dayalı */
+.arac-ekle-sayfasi .form-kutusu {
+    width: 65%;
+    max-width: 700px;
+    margin: 0 0 30px auto;
+    padding: 14px 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+    .arac-ekle-sayfasi {
+        padding: 10px 15px;
+    }
+
+    .arac-ekle-sayfasi .form-kutusu {
+        width: 100%;
+    }
+}
+
+/* Araç Ekle sayfasının genel boşlukları */
+.arac-ekle-sayfasi {
+    padding: 30px 5% 35px;
+    box-sizing: border-box;
+}
+
+/* Ana başlık ve açıklama */
+.arac-ekle-baslik {
+    margin: 0 0 25px;
+    text-align: left;
+}
+
+.arac-ekle-baslik h2 {
+    margin: 0 0 10px;
+}
+
+.arac-ekle-baslik p {
+    margin: 0;
+}
+
+/* Kutunun üzerindeki alt başlık */
+.yeni-arac-baslik {
+    width: 65%;
+    max-width: 700px;
+    margin: 0 auto 12px;
+    box-sizing: border-box;
+}
+
+/* Form kutusu */
+.arac-ekle-sayfasi .form-kutusu {
+    width: 65%;
+    max-width: 700px;
+    margin: 0 auto 35px;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+.arac-ekle-sayfasi .form-kutusu h3 {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .yeni-arac-baslik,
+    .arac-ekle-sayfasi .form-kutusu {
+        width: 100%;
+    }
+}
+
+/* Araç Ekle sayfasındaki beyaz form kutusu */
+#aracForm {
+    width: 65%;
+    max-width: 700px;
+    margin: 0 auto 35px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+}
+
+/* Form alanları */
+#aracForm input:not([type="file"]) {
+    width: 100%;
+    height: 38px;
+    box-sizing: border-box;
+}
+
+#aracForm input[type="file"] {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#aracForm button {
+    width: 100%;
+    min-height: 38px;
+}
+
+@media (max-width: 600px) {
+    #aracForm {
+        width: 100%;
+    }
+}
+
+#aracForm {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+/* ===== ANA SAYFA TASARIMI ===== */
+
+.ana-header {
+    background: #172536;
+    color: white;
+    padding: 22px 6%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.ana-header h1 {
+    margin: 0 0 20px;
+    text-align: center;
+    font-size: 30px;
+    letter-spacing: 2px;
+    color: white;
+}
+
+.ana-header nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.ana-header nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 7px;
+    transition: 0.3s;
+}
+
+.ana-header nav a:hover {
+    background: #34495e;
+    color: #f1c40f;
+}
+
+/* Karşılama alanı */
+
+.ana-banner {
+    min-height: 390px;
+    display: flex;
+    align-items: center;
+    padding: 45px 8%;
+    box-sizing: border-box;
+    color: white;
+    background: linear-gradient(120deg, #101820, #263e55, #40566b);
+    position: relative;
+    overflow: hidden;
+}
+
+.ana-icerik {
+    max-width: 650px;
+}
+
+.ust-yazi {
+    color: #f1c40f;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+}
+
+.ana-icerik h2 {
+    font-size: clamp(36px, 5vw, 58px);
+    line-height: 1.15;
+    margin: 0 0 22px;
+    color: white;
+}
+
+.ana-icerik > p:not(.ust-yazi) {
+    font-size: 17px;
+    line-height: 1.8;
+    color: #e0e6ec;
+    max-width: 550px;
+    margin-bottom: 28px;
+}
+
+.ana-buton {
+    display: inline-block;
+    background: #f1c40f;
+    color: #172536;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 14px 26px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.ana-buton:hover {
+    background: #ffd633;
+    transform: translateY(-2px);
+}
+
+/* Özellik kartları */
+
+.ana-ozellikler {
+    padding: 45px 6%;
+    background: #f3f5f7;
+    text-align: center;
+}
+
+.ana-ozellikler > h2 {
+    color: #172536;
+    font-size: 28px;
+    margin: 0 0 30px;
+}
+
+.ozellik-kartlari {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.ozellik-karti {
+    background: white;
+    padding: 28px 22px;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+    border: 1px solid #e7ebef;
+    transition: 0.3s;
+}
+
+.ozellik-karti:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 9px 22px rgba(0, 0, 0, 0.12);
+}
+
+.ozellik-karti h3 {
+    color: #263e55;
+    font-size: 19px;
+    margin: 0 0 14px;
+}
+
+.ozellik-karti p {
+    color: #65717d;
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* Alt bilgi */
+
+.ana-footer {
+    background: #172536;
+    color: #dce3ea;
+    text-align: center;
+    padding: 18px;
+}
+
+.ana-footer p {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* Telefon ve tablet görünümü */
+
+@media (max-width: 700px) {
+    .ana-header {
+        padding: 20px 4%;
+    }
+
+    .ana-header h1 {
+        font-size: 24px;
+    }
+
+    .ana-header nav {
+        gap: 5px;
+    }
+
+    .ana-header nav a {
+        padding: 9px 10px;
+        font-size: 14px;
+    }
+
+    .ana-banner {
+        min-height: 340px;
+        padding: 40px 7%;
+    }
+
+    .ana-ozellikler {
+        padding: 35px 5%;
+    }
+
+    .ozellik-kartlari {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ARAÇLAR SAYFASI */
+
+.sayfa-header {
+    text-align: center;
+    padding: 22px 20px;
+    margin-bottom: 10px;
+}
+
+.sayfa-header h1 {
+    margin: 0;
+    color: #c5a059;
+    font-size: 30px;
+    letter-spacing: 1px;
+}
+
+body:has(#aracListesi) > nav {
+    text-align: center;
+    padding: 16px 10px;
+    margin-bottom: 25px;
+    background-color: #111827;
+}
+
+body:has(#aracListesi) > nav a {
+    display: inline-block;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 10px;
+    font-weight: 500;
+}
+
+body:has(#aracListesi) > nav a:hover {
+    color: #c5a059;
+}
+
+body:has(#aracListesi) .arac-bolumu {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto 40px;
+}
+
+body:has(#aracListesi) .arac-bolumu > h2 {
+    margin-bottom: 8px;
+}
+
+body:has(#aracListesi) #arama {
+    display: block;
+    width: 100%;
+    max-width: 700px;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    margin: 20px 0;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+body:has(#aracListesi) .filtreler {
+    width: 100%;
+    max-width: 700px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 9px;
+    margin: 0 0 30px;
+    padding: 18px 20px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+body:has(#aracListesi) .filtreler h3 {
+    margin: 0 0 8px;
+}
+
+body:has(#aracListesi) .filtreler label {
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+body:has(#aracListesi) .filtreler input,
+body:has(#aracListesi) .filtreler select {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    min-height: 40px;
+    padding: 9px 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+    background: #ffffff;
+}
+
+body:has(#aracListesi) .filtreler button {
+    padding: 10px 16px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 7px;
+    background: #111827;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+body:has(#aracListesi) .filtreler button:hover {
+    background: #c5a059;
+    color: #111827;
+}
+
+body:has(#aracListesi) .arac-kartlari {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+}
+
+body:has(#aracListesi) .arac-karti {
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+body:has(#aracListesi) .arac-karti:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+}
+
+body:has(#aracListesi) .arac-karti > img {
+    display: block;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+body:has(#aracListesi) .arac-bilgi {
+    padding: 16px;
+}
+
+body:has(#aracListesi) .arac-bilgi h3 {
+    margin: 0 0 12px;
+}
+
+body:has(#aracListesi) .arac-bilgi h4 {
+    color: #a67c32;
+    font-size: 21px;
+    margin: 12px 0;
+}
+
+body:has(#aracListesi) .arac-bilgi p {
+    margin: 9px 0;
+}
+
+body:has(#aracListesi) .arac-bilgi .sil-buton {
+    padding: 9px 14px;
+    border: none;
+    border-radius: 7px;
+    background: #dc2626;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    body:has(#aracListesi) .arac-bolumu {
+        width: 94%;
+    }
+
+    body:has(#aracListesi) .arac-kartlari {
+        grid-template-columns: 1fr;
+    }
+
+    body:has(#aracListesi) > nav a {
+        padding: 7px;
+    }
+}
+
+/* ABONELER SAYFASI */
+body:has(#aboneFormu) .arac-bolumu,
+body:has(#kiralamaFormu) .arac-bolumu {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto 40px;
+}
+
+body:has(#aboneFormu) #aboneFormu,
+body:has(#kiralamaFormu) #kiralamaFormu {
+    width: 65%;
+    max-width: 700px;
+    box-sizing: border-box;
+    margin: 0 0 35px 0;
+    padding: 14px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+body:has(#aboneFormu) #aboneFormu label,
+body:has(#kiralamaFormu) #kiralamaFormu label {
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+body:has(#aboneFormu) #aboneFormu input,
+body:has(#aboneFormu) #aboneFormu select,
+body:has(#kiralamaFormu) #kiralamaFormu input,
+body:has(#kiralamaFormu) #kiralamaFormu select {
+    width: 100%;
+    min-height: 38px;
+    box-sizing: border-box;
+    padding: 8px 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #ffffff;
+}
+
+body:has(#aboneFormu) #aboneFormu button,
+body:has(#kiralamaFormu) #kiralamaFormu button {
+    align-self: flex-start;
+    padding: 10px 18px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 7px;
+    background: #111827;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+body:has(#aboneFormu) #aboneFormu button:hover,
+body:has(#kiralamaFormu) #kiralamaFormu button:hover {
+    background: #c5a059;
+    color: #111827;
+}
+
+body:has(#aboneListesi) .arac-karti,
+body:has(#kiralamaListesi) .arac-karti {
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 18px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+@media (max-width: 600px) {
+    body:has(#aboneFormu) #aboneFormu,
+    body:has(#kiralamaFormu) #kiralamaFormu {
+        width: 100%;
+    }
+}
+
+/* Araçlar sayfasının üst panelini diğer sayfalarla eşitle */
+body:has(#aracListesi) .ana-header {
+    background: #111827;
+    color: #ffffff;
+    padding: 20px 30px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.ana-header {
+    background: #101820;
+    color: white;
+    padding: 25px 20px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+body:has(#aracListesi) .ana-header h1 {
+    color: #c5a059;
+    margin: 0;
+    font-size: 26px;
+}
+
+body:has(#aracListesi) .ana-header nav {
+    background: transparent;
+    margin: 0;
+    padding: 0;
+}
+
+body:has(#aracListesi) .ana-header nav a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 10px;
+}
+
+body:has(#aracListesi) .ana-header nav a:hover {
+    color: #c5a059;
+}
+
+@media (max-width: 700px) {
+    body:has(#aracListesi) .ana-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 18px;
+    }
+}
+
+
+
+
+/* Yalnızca Araçlar sayfasının üst paneli */
+body:has(#aracListesi) header.ana-header {
+    background: linear-gradient(120deg, #101820, #263e55, #40566b);
+    padding: 25px 20px;
+    margin: 0;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+body:has(#aracListesi) header.ana-header h1 {
+    color: white;
+    margin: 0 0 20px;
+    text-align: center;
+    font-size: 30px;
+    letter-spacing: 2px;
+}
+
+body:has(#aracListesi) header.ana-header nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+}
+
+body:has(#aracListesi) header.ana-header nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 7px;
+}
+
+body:has(#aracListesi) header.ana-header nav a:hover {
+    background: #34495e;
+    color: #f1c40f;
+}
+
+/* Yalnızca Araçlar sayfasının üst paneli */
+body:has(#aracListesi) header.ana-header {
+    background: linear-gradient(120deg, #101820, #263e55, #40566b);
+    padding: 25px 20px;
+    margin: 0;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+body:has(#aracListesi) header.ana-header h1 {
+    color: white;
+    margin: 0 0 20px;
+    text-align: center;
+    font-size: 30px;
+    letter-spacing: 2px;
+}
+
+body:has(#aracListesi) header.ana-header nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+}
+
+body:has(#aracListesi) header.ana-header nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 7px;
+}
+
+body:has(#aracListesi) header.ana-header nav a:hover {
+    background: #34495e;
+    color: #f1c40f;
+}
+
+/* Araçlar sayfasının arka planını diğer sayfalarla eşitle */
+body:has(#aracListesi) {
+    background: #f4f6f8;
+}
+
+body:has(#aracListesi) header.ana-header {
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+}
+
+/* Araçlar sayfasının arka planını diğer sayfalarla eşitle */
+body:has(#aracListesi) {
+    background: #f4f6f8;
+}
+
+body:has(#aracListesi) header.ana-header {
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+}
+
+/* ANA SAYFA - GELİŞMİŞ TASARIM */
+
+.ana-banner {
+    min-height: 440px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 35px;
+    padding: 55px 8%;
+    box-sizing: border-box;
+    color: white;
+    background: linear-gradient(120deg, #101820, #263e55, #40566b);
+    overflow: hidden;
+}
+
+.ana-icerik {
+    flex: 1;
+    max-width: 600px;
+}
+
+.ana-icerik .ust-yazi,
+.ust-yazi {
+    color: #d5b36a;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.ana-icerik h2 {
+    font-size: clamp(32px, 4vw, 52px);
+    line-height: 1.15;
+    margin: 20px 0;
+}
+
+.ana-icerik > p:not(.ust-yazi) {
+    color: #e0e6ed;
+    font-size: 16px;
+    line-height: 1.8;
+    max-width: 500px;
+}
+
+.ana-buton {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 14px 24px;
+    background: #d5b36a;
+    color: #101820;
+    border-radius: 7px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.ana-buton:hover {
+    background: white;
+    transform: translateY(-2px);
+}
+
+.ana-gorsel {
+    flex: 1;
+    min-width: 250px;
+    max-width: 470px;
+    height: 280px;
+    display: flex;
+    align-items: flex-end;
+    padding: 22px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 18px;
+    background:
+        linear-gradient(0deg, rgba(10,18,27,0.95), transparent 75%),
+        linear-gradient(135deg, #526579, #172330 70%);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.25);
+}
+
+.gorsel-etiket {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.gorsel-etiket span {
+    color: #d5b36a;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+.gorsel-etiket strong {
+    font-size: 20px;
+}
+
+.ana-istatistikler {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 30px 8%;
+    background: white;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.istatistik {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    text-align: center;
+}
+
+.istatistik strong {
+    font-size: 24px;
+    color: #263e55;
+}
+
+.istatistik span {
+    color: #687584;
+    font-size: 14px;
+}
+
+.ana-ozellikler {
+    padding: 65px 8%;
+}
+
+.bolum-basligi {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.bolum-basligi h2 {
+    color: #172330;
+    font-size: 30px;
+    margin: 12px 0;
+}
+
+.bolum-basligi > p:last-child {
+    color: #687584;
+}
+
+.ozellik-kartlari {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.ozellik-karti {
+    padding: 28px 24px;
+    background: white;
+    border: 1px solid #e5e9ef;
+    border-radius: 13px;
+    box-shadow: 0 6px 20px rgba(16,24,32,0.05);
+    transition: 0.3s;
+}
+
+.ozellik-karti:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(16,24,32,0.10);
+}
+
+.ozellik-ikon {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.ozellik-karti h3 {
+    color: #263e55;
+    font-size: 18px;
+}
+
+.ozellik-karti p {
+    color: #687584;
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+.araclari-kesfet {
+    margin-top: 40px;
+    padding: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    background: #eaf0f5;
+    border-radius: 13px;
+}
+
+.araclari-kesfet h2 {
+    color: #172330;
+    margin: 0 0 8px;
+}
+
+.araclari-kesfet p {
+    color: #687584;
+    margin: 0;
+}
+
+.ana-footer {
+    padding: 22px;
+    text-align: center;
+    background: #101820;
+    color: #dce3eb;
+}
+
+/* Telefon ve dar ekranlar */
+@media (max-width: 750px) {
+    .ana-banner {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 40px 6%;
+    }
+
+    .ana-gorsel {
+    flex: 1;
+    min-width: 250px;
+    max-width: 470px;
+    height: 320px;
+    display: flex;
+    align-items: flex-end;
+    padding: 22px;
+    box-sizing: border-box;
+    border-radius: 18px;
+
+    background-image: url("https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1000&q=85");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    box-shadow: 0 18px 40px rgba(0,0,0,0.25);
+}
+    .ana-istatistikler {
+        padding: 25px 4%;
+        gap: 10px;
+    }
+
+    .istatistik strong {
+        font-size: 19px;
+    }
+
+    .istatistik span {
+        font-size: 12px;
+    }
+
+    .ana-ozellikler {
+        padding: 45px 6%;
+    }
+
+    .ozellik-kartlari {
+        grid-template-columns: 1fr;
+    }
+
+    .araclari-kesfet {
+        padding: 22px;
+    }
+}
+
+.ana-gorsel {
+    position: relative;
+    overflow: hidden;
+    min-height: 320px;
+}
+
+.ana-gorsel img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.ana-gorsel .gorsel-etiket {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding: 15px;
+    margin: -22px;
+    background: linear-gradient(0deg, rgba(10,18,27,0.9), transparent);
+}

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Müşteriler | Galeri Otomasyonu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="ana-header">
+    <h1>MÜŞTERİ YÖNETİMİ</h1>
+
+    <nav>
+        <a href="index.html">Ana Sayfa</a> |
+        <a href="araclar.html">Araçlar</a> |
+        <a href="arac-ekle.html">Araç Ekle</a> |
+        <a href="musteriler.html">Müşteriler</a> |
+        <a href="satislar.html">Satışlar</a> | 
+        <a href="aboneler.html">Aboneler</a> |
+        <a href="kiralamalar.html">Kiralamalar</a>
+        
+    </nav>
+    </header>
+
+    <section class="arac-bolumu">
+        <h2>Müşteri Kayıtları</h2>
+        <p>Galerimize kayıtlı müşterileri bu sayfadan yöneteceğiz.</p>
+
+        <h3>Yeni Müşteri Ekle</h3>
+
+        <form id="musteriFormu">
+            <label for="adSoyad">Ad Soyad:</label>
+            <input type="text" id="adSoyad" required
+                   placeholder="Müşterinin adı soyadı">
+
+            <br><br>
+
+            <label for="telefon">Telefon:</label>
+            <input type="tel" id="telefon" required
+                   placeholder="05XX XXX XX XX">
+
+            <br><br>
+
+            <label for="email">E-posta:</label>
+            <input type="email" id="email"
+                   placeholder="ornek@mail.com">
+
+            <br><br>
+
+            <button type="submit">Müşteri Ekle</button>
+        </form>
+
+        <h3>Kayıtlı Müşteriler</h3>
+
+        <div id="musteriListesi">
+            Henüz müşteri kaydı bulunmuyor.
+        </div>
+    </section>
+
+<script>
+const musteriFormu = document.getElementById("musteriFormu");
+const musteriListesi = document.getElementById("musteriListesi");
+
+// Kayıtlı müşterileri getir
+function musterileriGetir() {
+    return JSON.parse(localStorage.getItem("musteriler")) || [];
+}
+
+// Müşterileri ekranda göster
+function musterileriGoster() {
+    const musteriler = musterileriGetir();
+    musteriListesi.innerHTML = "";
+
+    if (musteriler.length === 0) {
+        musteriListesi.textContent = "Henüz müşteri kaydı bulunmuyor.";
+        return;
+    }
+
+    musteriler.forEach(function(musteri) {
+        const kart = document.createElement("div");
+        kart.className = "arac-karti";
+
+        const ad = document.createElement("h3");
+        ad.textContent = musteri.adSoyad;
+
+        const telefon = document.createElement("p");
+        telefon.textContent = "Telefon: " + musteri.telefon;
+
+        const email = document.createElement("p");
+        email.textContent = "E-posta: " + (musteri.email || "Belirtilmedi");
+
+        const silButonu = document.createElement("button");
+        silButonu.textContent = "Müşteriyi Sil";
+        silButonu.className = "sil-buton";
+
+        silButonu.addEventListener("click", function() {
+            if (confirm("Bu müşteriyi silmek istiyor musun?")) {
+                const kalanlar = musteriler.filter(function(m) {
+                    return m.id !== musteri.id;
+                });
+
+                localStorage.setItem("musteriler", JSON.stringify(kalanlar));
+                musterileriGoster();
+            }
+        });
+
+        kart.append(ad, telefon, email, silButonu);
+        musteriListesi.appendChild(kart);
+    });
+}
+
+// Yeni müşteri kaydet
+musteriFormu.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const yeniMusteri = {
+        id: Date.now().toString(),
+        adSoyad: document.getElementById("adSoyad").value.trim(),
+        telefon: document.getElementById("telefon").value.trim(),
+        email: document.getElementById("email").value.trim()
+    };
+
+    const musteriler = musterileriGetir();
+    musteriler.push(yeniMusteri);
+
+    localStorage.setItem("musteriler", JSON.stringify(musteriler));
+
+    musteriFormu.reset();
+    musterileriGoster();
+
+    alert("Müşteri başarıyla eklendi!");
+});
+
+// Sayfa açılınca kayıtları göster
+musterileriGoster();
+</script>
+</body>
+</html>
+

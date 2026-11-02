@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Araç Yorumları | Galeri Otomasyonu</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            background: #f3f5f9;
+            color: #17233d;
+        }
+
+        .yorum-kart {
+            max-width: 780px;
+            margin: 30px auto;
+            background: white;
+            border: 1px solid #e5e9f1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 12px 35px rgba(23,35,61,.09);
+        }
+
+        .yorum-baslik {
+            padding: 25px;
+            background: linear-gradient(135deg,#17233d,#293d60);
+            color: white;
+        }
+
+        .yorum-baslik h2 {
+            margin: 0 0 8px;
+            font-size: 23px;
+        }
+
+        .yorum-baslik p {
+            margin: 0;
+            color: #d9dfeb;
+            font-size: 14px;
+        }
+
+        .yorum-icerik {
+            padding: 25px;
+        }
+
+        .yorum-sayisi {
+            color: #7b8598;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        .yorum-listesi {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .tek-yorum {
+            padding: 18px;
+            background: #f8f9fc;
+            border: 1px solid #e5e9f1;
+            border-left: 4px solid #c9a45c;
+            border-radius: 13px;
+            overflow-wrap: anywhere;
+        }
+
+        .yorum-kullanici {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .yorum-avatar {
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            background: #e9dfc9;
+            color: #17233d;
+            border-radius: 50%;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .yorum-kullanici strong {
+            color: #17233d;
+            font-size: 15px;
+        }
+
+        .yorum-tarihi {
+            display: block;
+            margin-top: 4px;
+            color: #8993a5;
+            font-size: 11px;
+        }
+
+        .yorum-metin {
+            color: #566176;
+            line-height: 1.8;
+            margin: 15px 0 0;
+            white-space: pre-wrap;
+        }
+
+        .yorum-bos {
+            padding: 30px 15px;
+            text-align: center;
+            background: #f8f9fc;
+            border-radius: 14px;
+            color: #788398;
+            line-height: 1.8;
+        }
+
+        .yorum-form-baslik {
+            margin: 30px 0 8px;
+            padding-top: 25px;
+            border-top: 1px solid #e8ebf2;
+            font-size: 20px;
+        }
+
+        .yorum-aciklama {
+            color: #8993a5;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .yorum-formu {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .yorum-formu label {
+            margin-top: 7px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .yorum-formu input,
+        .yorum-formu textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 14px 15px;
+            background: #f8f9fc;
+            color: #17233d;
+            border: 1px solid #dfe4ed;
+            border-radius: 11px;
+            font: inherit;
+            outline: none;
+        }
+
+        .yorum-formu input:focus,
+        .yorum-formu textarea:focus {
+            border-color: #c9a45c;
+            box-shadow: 0 0 0 3px rgba(201,164,92,.14);
+        }
+
+        .yorum-formu textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .yorum-gonder {
+            margin-top: 10px;
+            padding: 14px 20px;
+            color: #17233d;
+            background: #c9a45c;
+            border: none;
+            border-radius: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .yorum-gonder:hover {
+            background: #b48b3d;
+            transform: translateY(-1px);
+        }
+
+        .yorum-bilgi {
+            min-height: 20px;
+            color: #526078;
+            font-size: 13px;
+        }
+
+        .yorum-geri-alan {
+            max-width: 780px;
+            margin: 0 auto 35px;
+        }
+
+        .yorum-geri {
+            display: inline-block;
+            padding: 12px 17px;
+            background: white;
+            border: 1px solid #e5e9f1;
+            border-radius: 10px;
+            color: #17233d;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .yorum-geri:hover {
+            border-color: #c9a45c;
+        }
+
+        @media(max-width:600px) {
+            .yorum-kart {
+                margin: 20px 12px;
+            }
+
+            .yorum-icerik {
+                padding: 17px;
+            }
+
+            .yorum-baslik {
+                padding: 21px 17px;
+            }
+
+            .yorum-baslik h2 {
+                font-size: 20px;
+            }
+
+            .yorum-geri-alan {
+                margin: 0 12px 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>ARAÇ YORUMLARI</h1>
+
+    <nav>
+        <a href="index.html">Ana Sayfa</a> |
+        <a href="araclar.html">Araçlar</a>
+    </nav>
+
+    <main class="yorum-kart">
+        <header class="yorum-baslik">
+            <h2 id="aracBaslik">💬 Müşteri Yorumları</h2>
+            <p>Deneyimlerini paylaş, diğer müşterilere yardımcı ol.</p>
+        </header>
+
+        <section class="yorum-icerik">
+            <p class="yorum-sayisi" id="yorumSayisi">
+                Yorumlar yükleniyor...
+            </p>
+
+            <div class="yorum-listesi" id="yorumListesi"></div>
+
+            <h3 class="yorum-form-baslik">Sen de yorum yap</h3>
+            <p class="yorum-aciklama">
+                Araç hakkındaki düşüncelerini aşağıya yazabilirsin.
+            </p>
+
+            <form class="yorum-formu" id="yorumFormu">
+                <label for="yorumAdi">Adın</label>
+                <input
+                    type="text"
+                    id="yorumAdi"
+                    maxlength="50"
+                    placeholder="Adını yaz"
+                    required
+                >
+
+                <label for="yorumMetni">Yorumun</label>
+                <textarea
+                    id="yorumMetni"
+                    maxlength="1000"
+                    placeholder="Yorumunu buraya yaz..."
+                    required
+                ></textarea>
+
+                <button class="yorum-gonder" type="submit">
+                    Yorumu Gönder ➤
+                </button>
+
+                <p class="yorum-bilgi" id="yorumBilgi"
+                   aria-live="polite"></p>
+            </form>
+        </section>
+    </main>
+
+    <div class="yorum-geri-alan">
+        <a class="yorum-geri" id="aracaDon" href="araclar.html">
+            ← Araç detayına dön
+        </a>
+    </div>
+
+    <script>
+        const parametreler = new URLSearchParams(location.search);
+        const aracId = parametreler.get("id");
+
+        const yorumListesi = document.getElementById("yorumListesi");
+        const yorumSayisi = document.getElementById("yorumSayisi");
+        const yorumFormu = document.getElementById("yorumFormu");
+        const yorumBilgi = document.getElementById("yorumBilgi");
+
+        function araclariGetir() {
+            return JSON.parse(localStorage.getItem("araclar")) || [];
+        }
+
+        function yorumlariGetir() {
+            const tumYorumlar =
+                JSON.parse(localStorage.getItem("aracYorumlari")) || {};
+
+            return tumYorumlar[String(aracId)] || [];
+        }
+
+        function yorumlariGoster() {
+            yorumListesi.replaceChildren();
+
+            const yorumlar = yorumlariGetir();
+
+            yorumSayisi.textContent =
+                yorumlar.length + (yorumlar.length === 1
+                    ? " yorum"
+                    : " yorum");
+
+            if (yorumlar.length === 0) {
+                const bos = document.createElement("div");
+                bos.className = "yorum-bos";
+                bos.textContent =
+                    "💬 Henüz yorum yapılmamış. İlk yorumu sen yaz!";
+                yorumListesi.appendChild(bos);
+                return;
+            }
+
+            yorumlar.slice().reverse().forEach(function(yorum) {
+                const kart = document.createElement("article");
+                kart.className = "tek-yorum";
+
+                const kullanici = document.createElement("div");
+                kullanici.className = "yorum-kullanici";
+
+                const avatar = document.createElement("div");
+                avatar.className = "yorum-avatar";
+                avatar.textContent =
+                    (yorum.ad || "?").trim().charAt(0).toLocaleUpperCase("tr-TR");
+
+                const bilgiler = document.createElement("div");
+
+                const ad = document.createElement("strong");
+                ad.textContent = yorum.ad || "Kullanıcı";
+
+                const tarih = document.createElement("span");
+                tarih.className = "yorum-tarihi";
+                tarih.textContent = yorum.tarih || "";
+
+                bilgiler.append(ad, tarih);
+                kullanici.append(avatar, bilgiler);
+
+                const metin = document.createElement("p");
+                metin.className = "yorum-metin";
+                metin.textContent = yorum.metin || "";
+
+                kart.append(kullanici, metin);
+                yorumListesi.appendChild(kart);
+            });
+        }
+
+        const arac = araclariGetir().find(function(a) {
+            return String(a.id) === String(aracId);
+        });
+
+        if (arac) {
+            document.getElementById("aracBaslik").textContent =
+                "💬 " + arac.marka + " " + arac.model + " Yorumları";
+
+            document.getElementById("aracaDon").href =
+                "arac-detay.html?id=" + encodeURIComponent(aracId);
+        }
+
+        yorumFormu.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const ad = document.getElementById("yorumAdi").value.trim();
+            const metin = document.getElementById("yorumMetni").value.trim();
+
+            if (!ad || !metin) {
+                yorumBilgi.textContent = "Lütfen adını ve yorumunu yaz.";
+                return;
+            }
+
+            try {
+                const tumYorumlar =
+                    JSON.parse(localStorage.getItem("aracYorumlari")) || {};
+
+                const yorumlar = tumYorumlar[String(aracId)] || [];
+
+                yorumlar.push({
+                    ad: ad,
+                    metin: metin,
+                    tarih: new Date().toLocaleString("tr-TR")
+                });
+
+                tumYorumlar[String(aracId)] = yorumlar;
+
+                localStorage.setItem(
+                    "aracYorumlari",
+                    JSON.stringify(tumYorumlar)
+                );
+
+                yorumFormu.reset();
+                yorumBilgi.textContent = "Yorumun başarıyla kaydedildi!";
+                yorumlariGoster();
+            } catch (hata) {
+                yorumBilgi.textContent =
+                    "Yorum kaydedilemedi. Tarayıcı depolama alanını kontrol et.";
+            }
+        });
+
+        yorumlariGoster();
+    </script>
+</body>
+</html>

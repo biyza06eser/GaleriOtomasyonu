@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+
+    <style>
+    .yorum-bolumu {
+        margin-top: 15px;
+        padding: 15px;
+        background: #f5f7fa;
+        border-radius: 10px;
+        cursor: default;
+    }
+
+    .yorum-bolumu h4 {
+        margin-top: 0;
+        color: #222;
+    }
+
+    .yorum-listesi {
+        margin-bottom: 15px;
+    }
+
+    .tek-yorum {
+        padding: 10px;
+        margin-bottom: 8px;
+        background: white;
+        border-radius: 7px;
+        overflow-wrap: anywhere;
+    }
+
+    .tek-yorum strong {
+        display: block;
+        margin-bottom: 5px;
+        color: #1769aa;
+    }
+
+    .yorum-formu input,
+    .yorum-formu textarea {
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 8px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font: inherit;
+    }
+
+    .yorum-formu textarea {
+        min-height: 75px;
+        resize: vertical;
+    }
+
+    .yorum-buton {
+        padding: 10px 15px;
+        background: #1769aa;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    .yorum-buton:hover {
+        background: #104d80;
+    }
+
+    .yorum-mesaji {
+        font-size: 14px;
+        margin-bottom: 0;
+    }
+</style> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Araçlarımız | Galeri Otomasyonu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+    <header class="ana-header">
+    <h1>ARAÇ LİSTESİ</h1>
+
+    <nav>
+        <a href="index.html">Ana Sayfa</a> |
+        <a href="araclar.html">Araçlar</a> |
+        <a href="musteriler.html">Müşteriler</a> |
+        <a href="satislar.html">Satışlar</a> |
+        <a href="arac-ekle.html">Araç Ekle</a> |
+        <a href="aboneler.html">Aboneler</a> |
+        <a href="kiralamalar.html">Kiralamalar</a>
+    </nav>
+</header>
+
+    <section class="arac-bolumu">
+        <h2>Satıştaki Araçlarımız</h2>
+
+        <p class="bolum-aciklama">
+            Galerimizde bulunan araçları inceleyebilirsiniz.
+        </p>
+
+        <input
+            type="text"
+            id="arama"
+            placeholder="Marka veya model ara..."
+        >
+        <div class="filtreler">
+    <h3>Araç Filtreleri</h3>
+
+    <label for="markaFiltre">Marka:</label>
+    <select id="markaFiltre">
+        <option value="">Tüm Markalar</option>
+    </select>
+
+    <label for="minFiyat">Minimum Fiyat (TL):</label>
+    <input type="number" id="minFiyat" placeholder="En düşük fiyat">
+
+    <label for="maxFiyat">Maksimum Fiyat (TL):</label>
+    <input type="number" id="maxFiyat" placeholder="En yüksek fiyat">
+
+    <label for="yilFiltre">Model Yılı:</label>
+    <select id="yilFiltre">
+        <option value="">Tüm Yıllar</option>
+    </select>
+
+    <button type="button" id="filtreSifirla">Filtreleri Temizle</button>
+</div>
+        <div id="aracListesi" class="arac-kartlari"></div>
+    </section>
+
+    <script>
+       const luksAracVerileri = [
+    ["BMW", "7 Serisi", 2024, 8500, 12500000],
+    ["BMW", "M5 Competition", 2023, 12000, 14500000],
+    ["BMW", "M8 Competition", 2024, 6000, 16000000],
+    ["BMW", "X7 M60i", 2024, 9000, 13500000],
+    ["BMW", "XM", 2024, 5000, 17500000],
+
+    ["Mercedes-Benz", "S 500", 2024, 7000, 14500000],
+    ["Mercedes-Benz", "AMG GT", 2023, 11000, 18500000],
+    ["Mercedes-Benz", "G 63 AMG", 2024, 4000, 22000000],
+    ["Mercedes-Benz", "Maybach GLS 600", 2024, 3500, 26000000],
+    ["Mercedes-Benz", "AMG E 63 S", 2022, 18000, 12500000],
+
+    ["Porsche", "911 Turbo S", 2024, 3000, 24000000],
+    ["Porsche", "Panamera Turbo", 2023, 9000, 15500000],
+    ["Porsche", "Cayenne Turbo GT", 2024, 6000, 18500000],
+    ["Porsche", "Taycan Turbo S", 2024, 4500, 14500000],
+    ["Porsche", "718 Cayman GT4 RS", 2023, 7000, 13500000],
+
+    ["Audi", "RS 7 Sportback", 2024, 8000, 12500000],
+    ["Audi", "R8 V10 Performance", 2022, 14000, 19000000],
+    ["Audi", "RS e-tron GT", 2024, 5000, 11500000],
+    ["Audi", "RS Q8", 2024, 6500, 13000000],
+    ["Audi", "A8 L", 2023, 12000, 9500000],
+
+    ["Lamborghini", "Revuelto", 2024, 1500, 65000000],
+    ["Lamborghini", "Huracan EVO", 2023, 4500, 35000000],
+    ["Lamborghini", "Urus S", 2024, 5000, 32000000],
+    ["Lamborghini", "Aventador SVJ", 2022, 6000, 58000000],
+    ["Lamborghini", "Temerario", 2025, 1000, 55000000],
+
+    ["Ferrari", "SF90 Stradale", 2023, 3500, 55000000],
+    ["Ferrari", "296 GTB", 2024, 2500, 42000000],
+    ["Ferrari", "Roma", 2023, 7000, 29000000],
+    ["Ferrari", "Purosangue", 2024, 3000, 65000000],
+    ["Ferrari", "F8 Tributo", 2022, 8000, 39000000],
+
+    ["Rolls-Royce", "Ghost", 2024, 2500, 52000000],
+    ["Rolls-Royce", "Cullinan", 2024, 3000, 65000000],
+    ["Rolls-Royce", "Spectre", 2024, 2000, 58000000],
+    ["Rolls-Royce", "Phantom", 2023, 4000, 75000000],
+    ["Rolls-Royce", "Wraith", 2022, 6500, 49000000],
+
+    ["Bentley", "Continental GT", 2024, 3500, 39000000],
+    ["Bentley", "Bentayga Speed", 2023, 8000, 32000000],
+    ["Bentley", "Flying Spur", 2024, 4000, 35000000],
+    ["Bentley", "Mulsanne", 2020, 18000, 28000000],
+    ["Bentley", "Continental GT Speed", 2024, 2500, 44000000],
+
+    ["Aston Martin", "DB12", 2024, 3000, 32000000],
+    ["Aston Martin", "Vantage", 2023, 6000, 25000000],
+    ["Aston Martin", "DBX707", 2024, 4000, 34000000],
+    ["Aston Martin", "DBS Superleggera", 2022, 9000, 38000000],
+    ["Aston Martin", "Valkyrie", 2024, 500, 150000000],
+
+    ["McLaren", "750S", 2024, 2000, 42000000],
+    ["McLaren", "Artura", 2024, 3500, 29000000],
+    ["McLaren", "GT", 2023, 7000, 25000000],
+    ["McLaren", "765LT", 2022, 4500, 48000000],
+    ["McLaren", "Senna", 2021, 2500, 95000000]
+];
+
+const luksResimler = [
+    "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=800&q=80"
+];
+
+const ornekAraclar = [
+    {
+        marka: "BMW",
+        model: "3 Serisi",
+        yil: "2022",
+        km: "35000",
+        fiyat: "1850000",
+        resim: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+        marka: "Chevrolet",
+        model: "Camaro",
+        yil: "2021",
+        km: "28000",
+        fiyat: "2400000",
+        resim: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+        marka: "Porsche",
+        model: "911",
+        yil: "2023",
+        km: "12000",
+        fiyat: "7500000",
+        resim: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80"
+    },
+
+    ...luksAracVerileri.map(function(arac, index) {
+        return {
+            marka: arac[0],
+            model: arac[1],
+            yil: String(arac[2]),
+            km: String(arac[3]),
+            fiyat: String(arac[4]),
+            resim: luksResimler[index % luksResimler.length]
+        };
+    })
+];
+function tumAraclariGetir() {
+    return JSON.parse(localStorage.getItem("araclar")) || [];
+}
+
+function ornekAraclariKaydet() {
+    if (localStorage.getItem("ornekAraclarHazir")) {
+        return;
+    }
+
+    const kayitliAraclar =
+        JSON.parse(localStorage.getItem("araclar")) || [];
+
+    const yeniOrnekler = ornekAraclar.map((arac, index) => ({
+        ...arac,
+        id: "ornek-" + index,
+        ornek: true
+    }));
+
+    localStorage.setItem(
+        "araclar",
+        JSON.stringify([...yeniOrnekler, ...kayitliAraclar])
+    );
+
+    localStorage.setItem("ornekAraclarHazir", "true");
+}
+function filtreSecenekleriniDoldur() {
+    const araclar = tumAraclariGetir();
+
+    const markaSecimi = document.getElementById("markaFiltre");
+    const yilSecimi = document.getElementById("yilFiltre");
+
+    const seciliMarka = markaSecimi.value;
+    const seciliYil = yilSecimi.value;
+
+    const markalar = [...new Set(
+        araclar.map(arac => arac.marka).filter(Boolean)
+    )].sort((a, b) => a.localeCompare(b, "tr"));
+
+    const yillar = [...new Set(
+        araclar.map(arac => String(arac.yil)).filter(Boolean)
+    )].sort((a, b) => Number(b) - Number(a));
+
+    markaSecimi.replaceChildren(new Option("Tüm Markalar", ""));
+
+    markalar.forEach(marka => {
+        markaSecimi.add(new Option(marka, marka));
+    });
+
+    yilSecimi.replaceChildren(new Option("Tüm Yıllar", ""));
+
+    yillar.forEach(yil => {
+        yilSecimi.add(new Option(yil, yil));
+    });
+
+    markaSecimi.value = markalar.includes(seciliMarka) ? seciliMarka : "";
+    yilSecimi.value = yillar.includes(seciliYil) ? seciliYil : "";
+}
+
+function yorumlariGetir(aracId) {
+    const yorumlar =
+        JSON.parse(localStorage.getItem("aracYorumlari")) || {};
+
+    return yorumlar[String(aracId)] || [];
+}
+
+function yorumBolumuOlustur(arac) {
+    const bolum = document.createElement("div");
+    bolum.className = "yorum-bolumu";
+
+    // Kartın tıklanmasının detay sayfasına yönlendirmesini engelle
+    bolum.addEventListener("click", function(event) {
+        event.stopPropagation();
+    });
+
+    const baslik = document.createElement("h4");
+    baslik.textContent = "💬 Müşteri Yorumları";
+
+    const liste = document.createElement("div");
+    liste.className = "yorum-listesi";
+
+    function yorumlariGoster() {
+        liste.replaceChildren();
+
+        const yorumlar = yorumlariGetir(arac.id);
+
+        if (yorumlar.length === 0) {
+            const bos = document.createElement("p");
+            bos.textContent = "Henüz yorum yapılmamış. İlk yorumu sen yaz!";
+            liste.appendChild(bos);
+            return;
+        }
+
+        yorumlar.forEach(function(yorum) {
+            const yorumKart = document.createElement("div");
+            yorumKart.className = "tek-yorum";
+
+            const isim = document.createElement("strong");
+            isim.textContent = yorum.ad;
+
+            const metin = document.createElement("p");
+            metin.textContent = yorum.metin;
+
+            yorumKart.append(isim, metin);
+            liste.appendChild(yorumKart);
+        });
+    }
+
+    const form = document.createElement("form");
+    form.className = "yorum-formu";
+
+    const ad = document.createElement("input");
+    ad.type = "text";
+    ad.placeholder = "Adın";
+    ad.maxLength = 50;
+    ad.required = true;
+
+    const metin = document.createElement("textarea");
+    metin.placeholder = "Bu araç hakkındaki yorumunu yaz...";
+    metin.maxLength = 1000;
+    metin.required = true;
+
+    const gonder = document.createElement("button");
+    gonder.type = "submit";
+    gonder.className = "yorum-buton";
+    gonder.textContent = "Yorumu Gönder";
+
+    const mesaj = document.createElement("p");
+    mesaj.className = "yorum-mesaji";
+
+    form.append(ad, metin, gonder, mesaj);
+
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const yeniYorum = {
+            ad: ad.value.trim(),
+            metin: metin.value.trim(),
+            tarih: new Date().toLocaleDateString("tr-TR")
+        };
+
+        if (!yeniYorum.ad || !yeniYorum.metin) {
+            mesaj.textContent = "Lütfen adını ve yorumunu yaz.";
+            return;
+        }
+
+        try {
+            const tumYorumlar =
+                JSON.parse(localStorage.getItem("aracYorumlari")) || {};
+
+            const aracYorumlari = tumYorumlar[String(arac.id)] || [];
+
+            aracYorumlari.push(yeniYorum);
+            tumYorumlar[String(arac.id)] = aracYorumlari;
+
+            localStorage.setItem(
+                "aracYorumlari",
+                JSON.stringify(tumYorumlar)
+            );
+
+            form.reset();
+            mesaj.textContent = "Yorumun başarıyla kaydedildi!";
+            yorumlariGoster();
+        } catch (hata) {
+            mesaj.textContent =
+                "Yorum kaydedilemedi. Tarayıcı depolama alanını kontrol et.";
+        }
+    });
+
+    yorumlariGoster();
+    bolum.append(baslik, liste, form);
+
+    return bolum;
+}
+
+function araclariGoster() {
+    const liste = document.getElementById("aracListesi");
+    const aranan = document.getElementById("arama")
+        .value.toLocaleLowerCase("tr-TR").trim();
+
+    const seciliMarka = document.getElementById("markaFiltre").value;
+    const seciliYil = document.getElementById("yilFiltre").value;
+
+    const minDeger = document.getElementById("minFiyat").value;
+    const maxDeger = document.getElementById("maxFiyat").value;
+
+    const minFiyat = minDeger === "" ? null : Number(minDeger);
+    const maxFiyat = maxDeger === "" ? null : Number(maxDeger);
+
+    liste.innerHTML = "";
+
+    const sonuc = tumAraclariGetir().filter(arac => {
+        const marka = (arac.marka || "").toLocaleLowerCase("tr-TR");
+        const model = (arac.model || "").toLocaleLowerCase("tr-TR");
+        const fiyat = Number(arac.fiyat || 0);
+        const yil = String(arac.yil || "");
+
+        return (
+            (marka.includes(aranan) || model.includes(aranan)) &&
+            (!seciliMarka || arac.marka === seciliMarka) &&
+            (!seciliYil || yil === seciliYil) &&
+            (minFiyat === null || fiyat >= minFiyat) &&
+            (maxFiyat === null || fiyat <= maxFiyat)
+        );
+    });
+
+    if (sonuc.length === 0) {
+        liste.textContent = "Bu kriterlere uygun araç bulunamadı.";
+        return;
+    }
+
+    sonuc.forEach(arac => {
+        const satislar =
+    JSON.parse(localStorage.getItem("satislar")) || [];
+
+const satildi = satislar.some(function(satis) {
+    return String(satis.aracId) === String(arac.id);
+});
+        const kart = document.createElement("div");
+        kart.className = "arac-karti";
+        kart.style.cursor = "pointer";
+
+        kart.addEventListener("click", function() {
+            window.location.href =
+                "arac-detay.html?id=" + encodeURIComponent(arac.id);
+        });
+
+        const resim = document.createElement("img");
+        resim.src = arac.resim ||
+            "https://placehold.co/600x400?text=Arac+Fotografi";
+        resim.alt = (arac.marka || "") + " " + (arac.model || "");
+
+        const durum = document.createElement("p");
+        durum.textContent = satildi ? "SATILDI" : "SATIŞTA";
+        durum.style.display = "inline-block";
+        durum.style.padding = "6px 12px";
+        durum.style.borderRadius = "6px";
+        durum.style.fontWeight = "bold";
+        durum.style.color = satildi ? "#ffffff" : "#166534";
+        durum.style.backgroundColor = satildi ? "#dc2626" : "#dcfce7";
+        
+        const bilgi = document.createElement("div");
+        bilgi.className = "arac-bilgi";
+
+        const baslik = document.createElement("h3");
+        baslik.textContent = (arac.marka || "") + " " + (arac.model || "");
+
+        const yil = document.createElement("p");
+        yil.textContent = "Model yılı: " + (arac.yil || "-");
+
+        const km = document.createElement("p");
+        km.textContent = "Kilometre: " +
+            Number(arac.km || 0).toLocaleString("tr-TR") + " km";
+
+        const fiyat = document.createElement("h4");
+        fiyat.textContent =
+            Number(arac.fiyat || 0).toLocaleString("tr-TR") + " TL";
+
+        bilgi.append(baslik,durum, yil, km, fiyat);
+
+      
+            const silButonu = document.createElement("button");
+            silButonu.textContent = "Aracı Sil";
+            silButonu.className = "sil-buton";
+
+            silButonu.addEventListener("click", function(event) {
+                event.stopPropagation();
+
+                if (confirm("Bu aracı silmek istediğine emin misin?")) {
+                    const kayitliAraclar =
+                        JSON.parse(localStorage.getItem("araclar")) || [];
+
+                    const kalanAraclar = kayitliAraclar.filter(
+                        a => a.id !== arac.id
+                    );
+
+                    localStorage.setItem(
+                        "araclar",
+                        JSON.stringify(kalanAraclar)
+                    );
+
+                    ornekAraclariKaydet();
+                    filtreSecenekleriniDoldur();
+                    araclariGoster();
+                }
+            });
+
+            bilgi.appendChild(silButonu);
+        
+
+kart.append(resim, bilgi);
+liste.appendChild(kart);
+    });
+}
+
+
+document.getElementById("arama").addEventListener("input", araclariGoster);
+document.getElementById("markaFiltre").addEventListener("change", araclariGoster);
+document.getElementById("yilFiltre").addEventListener("change", araclariGoster);
+document.getElementById("minFiyat").addEventListener("input", araclariGoster);
+document.getElementById("maxFiyat").addEventListener("input", araclariGoster);
+
+document.getElementById("filtreSifirla").addEventListener("click", function() {
+    document.getElementById("arama").value = "";
+    document.getElementById("markaFiltre").value = "";
+    document.getElementById("yilFiltre").value = "";
+    document.getElementById("minFiyat").value = "";
+    document.getElementById("maxFiyat").value = "";
+
+    araclariGoster();
+});
+
+ornekAraclariKaydet();
+filtreSecenekleriniDoldur();
+araclariGoster();
+    </script>
+
+</body>
+</html>

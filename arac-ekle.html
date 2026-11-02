@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Araç Ekle | Galeri Otomasyonu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="ana-header">
+    <h1>ARAÇ EKLEME</h1>
+    <nav>
+        <a href="index.html">Ana Sayfa</a> |
+        <a href="araclar.html">Araçlar</a> |
+        <a href="arac-ekle.html">Araç Ekle</a> |
+        <a href="musteriler.html">Müşteriler</a> |
+        <a href="satislar.html">Satışlar</a> |
+        <a href="aboneler.html">Aboneler</a> |
+        <a href="kiralamalar.html">Kiralamalar</a>
+    </nav>
+</header>
+
+<section class="arac-bolumu">
+    <h2>Araç Kayıtları</h2>
+    <p>Galerimize yeni araçları bu sayfadan ekleyebiliriz.</p>
+
+    <h3>Yeni Araç Ekle</h3>
+
+    <form id="aracForm">
+        <label for="marka">Marka</label>
+        <input type="text" id="marka" placeholder="Örn. BMW" required>
+        <br><br>
+
+        <label for="model">Model</label>
+        <input type="text" id="model" placeholder="Örn. 320i" required>
+        <br><br>
+
+        <label for="plaka">Araç Plakası</label>
+        <input type="text" id="plaka"
+               placeholder="Örn. 05 ABC 123"
+               maxlength="15" required>
+        <br><br>
+
+        <label for="yil">Model Yılı</label>
+        <input type="number" id="yil" min="1900" max="2100" required>
+        <br><br>
+
+        <label for="km">Kilometre</label>
+        <input type="number" id="km" min="0"
+               placeholder="Örn. 35000" required>
+        <br><br>
+
+        <label for="fiyat">Satış Fiyatı (TL)</label>
+        <input type="number" id="fiyat" min="1"
+               placeholder="Örn. 1850000" required>
+        <br><br>
+
+        <label for="gunlukKira">Günlük Kira Bedeli (TL)</label>
+        <input type="number" id="gunlukKira" min="1"
+               placeholder="Örn. 2500" required>
+        <br><br>
+
+        <label for="resim">Araç Fotoğrafı:</label>
+        <input type="file" id="resim" accept="image/*" required>
+        <br><br>
+
+        <button type="submit" class="form-buton">Aracı Ekle</button>
+    </form>
+
+    <p id="mesaj"></p>
+</section>
+
+<script>
+document.getElementById("aracForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const dosya = document.getElementById("resim").files[0];
+
+    if (!dosya || !dosya.type.startsWith("image/")) {
+        alert("Lütfen geçerli bir araç fotoğrafı seç!");
+        return;
+    }
+
+    const plaka = document.getElementById("plaka").value
+        .trim().toLocaleUpperCase("tr-TR");
+
+    // Aynı plakanın tekrar kaydedilmesini önle
+    const mevcutAraclar = JSON.parse(localStorage.getItem("araclar")) || [];
+
+    const plakaVarMi = mevcutAraclar.some(arac =>
+        arac.plaka &&
+        arac.plaka.replace(/\s/g, "").toLocaleUpperCase("tr-TR") ===
+        plaka.replace(/\s/g, "")
+    );
+
+    if (plakaVarMi) {
+        alert("Bu plaka zaten kayıtlı! Lütfen kontrol et.");
+        return;
+    }
+
+    const okuyucu = new FileReader();
+
+    okuyucu.onload = function() {
+        const arac = {
+            id: Date.now(),
+            marka: document.getElementById("marka").value.trim(),
+            model: document.getElementById("model").value.trim(),
+            plaka: plaka,
+            yil: document.getElementById("yil").value,
+            km: document.getElementById("km").value,
+            fiyat: document.getElementById("fiyat").value,
+            gunlukKira: document.getElementById("gunlukKira").value,
+            resim: okuyucu.result
+        };
+
+        const araclar = JSON.parse(localStorage.getItem("araclar")) || [];
+        araclar.push(arac);
+
+        try {
+            localStorage.setItem("araclar", JSON.stringify(araclar));
+
+            document.getElementById("mesaj").textContent =
+                "Araç, plakası, fotoğrafı ve fiyatları başarıyla kaydedildi!";
+
+            document.getElementById("aracForm").reset();
+        } catch (hata) {
+            alert("Kayıt alanı dolmuş olabilir. Daha küçük bir fotoğraf dene.");
+        }
+    };
+
+    okuyucu.onerror = function() {
+        alert("Fotoğraf okunamadı. Lütfen başka bir fotoğraf dene.");
+    };
+
+    okuyucu.readAsDataURL(dosya);
+});
+</script>
+
+</body>
+</html>

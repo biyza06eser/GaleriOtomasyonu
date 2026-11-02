@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aboneler | Galeri Otomasyonu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="ana-header">
+    <h1>ABONE YÖNETİMİ</h1>
+
+    <nav>
+        <a href="index.html">Ana Sayfa</a> |
+        <a href="araclar.html">Araçlar</a> |
+        <a href="arac-ekle.html">Araç Ekle</a> |
+        <a href="musteriler.html">Müşteriler</a> |
+        <a href="satislar.html">Satışlar</a> |
+        <a href="aboneler.html">Aboneler</a> |
+        <a href="kiralamalar.html">Kiralamalar</a>
+    </nav>
+    </header>
+
+    <section class="arac-bolumu">
+        <h2>Abone Kayıtları</h2>
+        <p>Galerimizin abonelik kayıtlarını bu sayfadan yöneteceğiz.</p>
+
+        <h3>Yeni Abone Ekle</h3>
+
+        <form id="aboneFormu">
+            <label for="adSoyad">Ad Soyad:</label>
+            <input type="text" id="adSoyad" required
+                   placeholder="Abonenin adı soyadı">
+
+            <br><br>
+
+            <label for="telefon">Telefon:</label>
+            <input type="tel" id="telefon" required
+                   placeholder="05XX XXX XX XX">
+
+            <br><br>
+
+            <label for="email">E-posta:</label>
+            <input type="email" id="email"
+                   placeholder="ornek@mail.com">
+
+            <br><br>
+
+            <label for="baslangic">Abonelik Başlangıç Tarihi:</label>
+            <input type="date" id="baslangic" required>
+
+            <br><br>
+
+            <label for="tur">Abonelik Türü:</label>
+            <select id="tur" required>
+                <option value="">Abonelik türü seç</option>
+                <option value="Aylık">Aylık</option>
+                <option value="3 Aylık">3 Aylık</option>
+                <option value="6 Aylık">6 Aylık</option>
+                <option value="Yıllık">Yıllık</option>
+            </select>
+
+            <br><br>
+
+            <button type="submit">Abone Ekle</button>
+        </form>
+
+        <h3>Kayıtlı Aboneler</h3>
+
+        <div id="aboneListesi">
+            Henüz abone kaydı bulunmuyor.
+        </div>
+    </section>
+
+    <script>
+        const aboneFormu = document.getElementById("aboneFormu");
+        const aboneListesi = document.getElementById("aboneListesi");
+
+        function aboneleriGetir() {
+            return JSON.parse(localStorage.getItem("aboneler")) || [];
+        }
+
+        function aboneleriGoster() {
+            const aboneler = aboneleriGetir();
+            aboneListesi.innerHTML = "";
+
+            if (aboneler.length === 0) {
+                aboneListesi.textContent =
+                    "Henüz abone kaydı bulunmuyor.";
+                return;
+            }
+
+            aboneler.forEach(function(abone) {
+                const kart = document.createElement("div");
+                kart.className = "arac-karti";
+
+                const ad = document.createElement("h3");
+                ad.textContent = abone.adSoyad;
+
+                const telefon = document.createElement("p");
+                telefon.textContent = "Telefon: " + abone.telefon;
+
+                const email = document.createElement("p");
+                email.textContent =
+                    "E-posta: " + (abone.email || "Belirtilmedi");
+
+                const baslangic = document.createElement("p");
+                baslangic.textContent =
+                    "Başlangıç: " + abone.baslangic;
+
+                const tur = document.createElement("p");
+                tur.textContent = "Abonelik Türü: " + abone.tur;
+
+                const silButonu = document.createElement("button");
+                silButonu.textContent = "Aboneyi Sil";
+                silButonu.className = "sil-buton";
+
+                silButonu.addEventListener("click", function() {
+                    if (confirm("Bu aboneyi silmek istiyor musun?")) {
+                        const kalanlar = aboneler.filter(function(a) {
+                            return a.id !== abone.id;
+                        });
+
+                        localStorage.setItem(
+                            "aboneler",
+                            JSON.stringify(kalanlar)
+                        );
+
+                        aboneleriGoster();
+                    }
+                });
+
+                kart.append(ad, telefon, email, baslangic, tur, silButonu);
+                aboneListesi.appendChild(kart);
+            });
+        }
+
+        aboneFormu.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const yeniAbone = {
+                id: Date.now().toString(),
+                adSoyad: document.getElementById("adSoyad").value.trim(),
+                telefon: document.getElementById("telefon").value.trim(),
+                email: document.getElementById("email").value.trim(),
+                baslangic: document.getElementById("baslangic").value,
+                tur: document.getElementById("tur").value
+            };
+
+            const aboneler = aboneleriGetir();
+            aboneler.push(yeniAbone);
+
+            localStorage.setItem("aboneler", JSON.stringify(aboneler));
+
+            aboneFormu.reset();
+            aboneleriGoster();
+
+            alert("Abone başarıyla eklendi!");
+        });
+
+        aboneleriGoster();
+    </script>
+
+</body>
+</html>

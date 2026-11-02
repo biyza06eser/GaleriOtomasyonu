@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Araç Detayı | Galeri Otomasyonu</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+
+/* YORUMLAR - MODERN TASARIM */
+.yorum-bolumu {
+    display: block;
+    margin: 35px 0;
+    padding: 25px;
+    background: #ffffff;
+    border: 1px solid #e5e9f1;
+    border-radius: 20px;
+    box-shadow: 0 12px 35px rgba(23, 35, 61, 0.08);
+    color: #17233d;
+}
+
+.yorum-bolumu h2,
+.yorum-bolumu h3 {
+    color: #17233d;
+    font-size: 22px;
+    margin: 0 0 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #edf0f5;
+}
+
+.tek-yorum {
+    display: block;
+    padding: 18px;
+    margin: 15px 0;
+    background: #f8f9fc;
+    border: 1px solid #e8ebf2;
+    border-left: 4px solid #c9a45c;
+    border-radius: 13px;
+    box-shadow: 0 4px 12px rgba(23, 35, 61, 0.04);
+}
+
+.tek-yorum strong {
+    display: block;
+    color: #17233d;
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+.tek-yorum p {
+    color: #566176;
+    font-size: 14px;
+    line-height: 1.8;
+    margin: 8px 0;
+    overflow-wrap: anywhere;
+}
+
+.tek-yorum small {
+    color: #8993a5;
+    font-size: 12px;
+}
+
+.yorum-formu {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 25px;
+}
+
+.yorum-formu input,
+.yorum-formu textarea {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px 16px;
+    color: #17233d;
+    background: #f8f9fc;
+    border: 1px solid #dfe4ed;
+    border-radius: 12px;
+    font: inherit;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.yorum-formu input:focus,
+.yorum-formu textarea:focus {
+    border-color: #c9a45c;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(201, 164, 92, .15);
+}
+
+.yorum-formu textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.yorum-gonder {
+    align-self: flex-start;
+    padding: 13px 23px;
+    color: #17233d;
+    background: #c9a45c;
+    border: none;
+    border-radius: 11px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.yorum-gonder:hover {
+    background: #b48b3d;
+    transform: translateY(-2px);
+}
+
+.yorum-mesaji {
+    padding: 13px 15px;
+    color: #526078;
+    background: #f3f5f9;
+    border-radius: 10px;
+}
+
+@media (max-width: 600px) {
+    .yorum-bolumu {
+        padding: 17px;
+        margin: 25px 0;
+    }
+
+    .yorum-bolumu h2,
+    .yorum-bolumu h3 {
+        font-size: 19px;
+    }
+
+    .yorum-gonder {
+        width: 100%;
+    }
+}
+
+        /* MODERN YORUM BÖLÜMÜ */
+.yorum-bolumu {
+    margin-top: 35px;
+    padding: 25px;
+    background: #ffffff;
+    border: 1px solid #e8eaf0;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(20, 30, 55, 0.06);
+}
+
+.yorum-bolumu h2,
+.yorum-bolumu h3 {
+    color: #17233d;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.tek-yorum {
+    background: #f7f8fc;
+    border: 1px solid #edf0f5;
+    border-left: 4px solid #c9a45c;
+    border-radius: 12px;
+    padding: 17px;
+    margin-bottom: 14px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.tek-yorum:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(20, 30, 55, 0.07);
+}
+
+.tek-yorum strong {
+    color: #17233d;
+    font-size: 15px;
+}
+
+.tek-yorum p {
+    color: #4b5568;
+    line-height: 1.7;
+    margin: 10px 0;
+    overflow-wrap: anywhere;
+}
+
+.tek-yorum small {
+    color: #8a91a1;
+    font-size: 12px;
+}
+
+.yorum-formu {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    margin-top: 24px;
+}
+
+.yorum-formu input,
+.yorum-formu textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px 15px;
+    border: 1px solid #dfe3ec;
+    border-radius: 11px;
+    background: #fbfcff;
+    color: #17233d;
+    font: inherit;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.yorum-formu input:focus,
+.yorum-formu textarea:focus {
+    border-color: #c9a45c;
+    box-shadow: 0 0 0 3px rgba(201, 164, 92, 0.15);
+}
+
+.yorum-formu textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.yorum-gonder {
+    align-self: flex-start;
+    padding: 13px 23px;
+    background: #17233d;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.yorum-gonder:hover {
+    background: #c9a45c;
+    color: #17233d;
+    transform: translateY(-1px);
+}
+
+.yorum-mesaji {
+    color: #526078;
+    padding: 12px;
+    border-radius: 10px;
+    background: #f7f8fc;
+}
+
+@media (max-width: 600px) {
+    .yorum-bolumu {
+        padding: 17px;
+        margin-top: 24px;
+    }
+
+    .yorum-gonder {
+        width: 100%;
+    }
+}
+
+        /* Araç düzenleme bölümünü güzelleştir */
+    .duzenle-formu {
+        margin-top: 30px;
+        padding: 25px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 14px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+    .duzenle-formu h2 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        color: #172033;
+        font-size: 23px;
+        border-bottom: 2px solid #1769aa;
+        padding-bottom: 12px;
+    }
+    .duzenle-formu label {
+        display: block;
+        margin-top: 16px;
+        margin-bottom: 6px;
+        color: #334155;
+        font-weight: 600;
+    }
+    .duzenle-formu input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px 14px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        background: white;
+        font-size: 15px;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .duzenle-formu input:focus {
+        outline: none;
+        border-color: #1769aa;
+        box-shadow: 0 0 0 3px rgba(23, 105, 170, 0.12);
+    }
+    .duzenle-formu input[type="file"] {
+        background: #fff;
+        cursor: pointer;
+    }
+    .islem-buton {
+        margin: 18px 8px 0 0;
+        padding: 12px 18px;
+        border: none;
+        border-radius: 8px;
+        color: white;
+        background: #334155;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s, transform 0.2s;
+    }
+    .islem-buton:hover {
+        background: #1e293b;
+        transform: translateY(-1px);
+    }
+    .kaydet-buton {
+        background: #15803d;
+    }
+    .kaydet-buton:hover {
+        background: #166534;
+    }
+    /* Müşteri yorumları bölümü */
+    .yorum-bolumu {
+        margin-top: 35px;
+        padding: 25px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 14px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+    .yorum-bolumu h2 {
+        margin-top: 0;
+        margin-bottom: 22px;
+        color: #172033;
+        font-size: 23px;
+        border-bottom: 2px solid #1769aa;
+        padding-bottom: 12px;
+    }
+    .tek-yorum {
+        background: white;
+        padding: 16px;
+        margin-bottom: 12px;
+        border: 1px solid #e2e8f0;
+        border-left: 4px solid #1769aa;
+        border-radius: 9px;
+        overflow-wrap: anywhere;
+    }
+    .tek-yorum strong {
+        display: block;
+        color: #1769aa;
+        margin-bottom: 8px;
+        font-size: 15px;
+    }
+    .tek-yorum p {
+        color: #334155;
+        line-height: 1.6;
+        margin: 0 0 8px;
+    }
+    .yorum-tarihi {
+        color: #94a3b8;
+        font-size: 12px;
+    }
+    .yorum-formu {
+        margin-top: 25px;
+        padding-top: 20px;
+        border-top: 1px solid #e2e8f0;
+    }
+    .yorum-formu label {
+        display: block;
+        margin-top: 14px;
+        margin-bottom: 6px;
+        color: #334155;
+        font-weight: 600;
+    }
+    .yorum-formu input,
+    .yorum-formu textarea {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px 14px;
+        margin-top: 4px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        background: white;
+        font-family: inherit;
+        font-size: 15px;
+    }
+    .yorum-formu input:focus,
+    .yorum-formu textarea:focus {
+        outline: none;
+        border-color: #1769aa;
+        box-shadow: 0 0 0 3px rgba(23, 105, 170, 0.12);
+    }
+    .yorum-formu textarea {
+        min-height: 110px;
+        resize: vertical;
+    }
+    .yorum-gonder {
+        margin-top: 14px;
+        padding: 12px 20px;
+        background: #1769aa;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+    .yorum-gonder:hover {
+        background: #104d80;
+    }
+    .yorum-mesaji {
+        font-weight: 600;
+        color: #15803d;
+    }
+    /* Küçük ekranlara uyum */
+    @media (max-width: 600px) {
+        .detay-kart {
+            margin: 15px 10px;
+            padding: 15px;
+        }
+        .duzenle-formu,
+        .yorum-bolumu {
+            padding: 16px;
+        }
+        .detay-bilgi p {
+            font-size: 15px;
+        }
+    }
+
+/* Müşteri yorumları */
+        .yorum-bolumu {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f5f7fa;
+            border-radius: 10px;
+        }
+        .yorum-bolumu h2 {
+            margin-top: 0;
+            color: #222;
+        }
+        .tek-yorum {
+            background: white;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #1769aa;
+            overflow-wrap: anywhere;
+        }
+        .tek-yorum strong {
+            display: block;
+            color: #1769aa;
+            margin-bottom: 5px;
+        }
+        .yorum-tarihi {
+            color: #777;
+            font-size: 12px;
+        }
+        .yorum-formu label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+        .yorum-formu input,
+        .yorum-formu textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 11px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font: inherit;
+        }
+        .yorum-formu textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .yorum-gonder {
+            margin-top: 12px;
+            padding: 11px 16px;
+            background: #1769aa;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .yorum-mesaji {
+            font-weight: bold;
+        }
+
+        .detay-kart {
+            max-width: 850px;
+            margin: 30px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+        }
+        .detay-resim {
+            width: 100%;
+            max-height: 450px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .detay-bilgi p {
+            font-size: 17px;
+            margin: 15px 0;
+        }
+        .detay-fiyat {
+            color: #167d36;
+            font-size: 24px;
+        }
+        .detay-kira {
+            color: #1769aa;
+            font-size: 22px;
+        }
+        .duzenle-formu {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f4f4f4;
+            border-radius: 10px;
+        }
+        .duzenle-formu label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+        .duzenle-formu input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            margin-top: 5px;
+        }
+        .islem-buton {
+            margin: 10px 5px 0 0;
+            padding: 11px 16px;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            background: #333;
+            cursor: pointer;
+        }
+        .kaydet-buton {
+            background: #167d36;
+        }
+        .geri-buton {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 18px;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+        #duzenlemeMesaji {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>ARAÇ DETAYI</h1>
+    <nav>
+        <a href="index.html">Ana Sayfa</a> |
+        <a href="araclar.html">Araçlar</a> |
+        <a href="arac-ekle.html">Araç Ekle</a> |
+        <a href="kiralamalar.html">Kiralamalar</a>
+    </nav>
+    <main class="detay-kart" id="detayAlani">
+        <p>Araç bilgileri yükleniyor...</p>
+    </main>
+    <script>
+    const ornekAraclar = [
+        {
+            id: "ornek-0",
+            marka: "BMW",
+            model: "3 Serisi",
+            plaka: "05 BMW 001",
+            yil: "2022",
+            km: "35000",
+            fiyat: "1850000",
+            gunlukKira: "2500",
+            resim: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+            id: "ornek-1",
+            marka: "Chevrolet",
+            model: "Camaro",
+            plaka: "05 CHV 002",
+            yil: "2021",
+            km: "28000",
+            fiyat: "2400000",
+            gunlukKira: "3500",
+            resim: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+            id: "ornek-2",
+            marka: "Porsche",
+            model: "911",
+            plaka: "05 PRS 003",
+            yil: "2023",
+            km: "12000",
+            fiyat: "7500000",
+            gunlukKira: "7500",
+            resim: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80"
+        }
+    ];
+
+    const parametreler = new URLSearchParams(window.location.search);
+    const aracId = parametreler.get("id");
+    const alan = document.getElementById("detayAlani");
+
+    function araclariGetir() {
+        try {
+            const kayit = JSON.parse(
+                localStorage.getItem("araclar") || "[]"
+            );
+
+            return Array.isArray(kayit) ? kayit : [];
+        } catch (hata) {
+            return [];
+        }
+    }
+
+    function tlFormatla(tutar) {
+        return Number(tutar || 0).toLocaleString("tr-TR") + " TL";
+    }
+
+    function aracBul() {
+        const kayitliAraclar = araclariGetir();
+
+        return kayitliAraclar.find(function(a) {
+            return String(a.id) === String(aracId);
+        }) || ornekAraclar.find(function(a) {
+            return String(a.id) === String(aracId);
+        });
+    }
+
+    function elemanOlustur(etiket, metin, sinif) {
+        const eleman = document.createElement(etiket);
+        eleman.textContent = metin || "";
+
+        if (sinif) {
+            eleman.className = sinif;
+        }
+
+        return eleman;
+    }
+
+    function detayGoster() {
+        const arac = aracBul();
+
+        if (!arac) {
+            alan.replaceChildren(
+                elemanOlustur("h2", "Araç bulunamadı"),
+                elemanOlustur(
+                    "p",
+                    "Bu araç silinmiş olabilir. Araç listesinden tekrar seç."
+                )
+            );
+
+            const geri = elemanOlustur(
+                "a",
+                "Araç Listesine Dön",
+                "geri-buton"
+            );
+
+            geri.href = "araclar.html";
+            alan.appendChild(geri);
+            return;
+        }
+
+        alan.replaceChildren();
+
+        const resim = document.createElement("img");
+        resim.className = "detay-resim";
+        resim.src = arac.resim ||
+            "https://placehold.co/800x450?text=Arac+Fotografi";
+        resim.alt = (arac.marka || "") + " " + (arac.model || "");
+
+        const baslik = elemanOlustur(
+            "h2",
+            (arac.marka || "") + " " + (arac.model || "")
+        );
+
+        const bilgiler = document.createElement("div");
+        bilgiler.className = "detay-bilgi";
+
+        bilgiler.append(
+            elemanOlustur("p", "Marka: " + (arac.marka || "-")),
+            elemanOlustur("p", "Model: " + (arac.model || "-")),
+            elemanOlustur(
+                "p",
+                "Plaka: " + (arac.plaka || "Henüz girilmedi")
+            ),
+            elemanOlustur("p", "Model yılı: " + (arac.yil || "-")),
+            elemanOlustur(
+                "p",
+                "Kilometre: " +
+                Number(arac.km || 0).toLocaleString("tr-TR") + " km"
+            )
+        );
+
+        const fiyat = elemanOlustur(
+            "h3",
+            "Satış Fiyatı: " + tlFormatla(arac.fiyat),
+            "detay-fiyat"
+        );
+
+        const kira = elemanOlustur(
+            "h3",
+            "Günlük Kira Bedeli: " +
+            (Number(arac.gunlukKira) > 0
+                ? tlFormatla(arac.gunlukKira)
+                : "Henüz belirlenmedi"),
+            "detay-kira"
+        );
+
+        const mesajButonu = elemanOlustur(
+            "button",
+            "Satıcıya Mesaj Gönder",
+            "islem-buton"
+        );
+
+        mesajButonu.type = "button";
+
+        mesajButonu.addEventListener("click", function() {
+            window.location.href =
+                "mesajlar.html?id=" + encodeURIComponent(arac.id);
+        });
+
+        const yorumButonu = elemanOlustur(
+            "button",
+            "💬 Yorumları Gör ve Yorum Yap",
+            "islem-buton"
+        );
+
+        yorumButonu.type = "button";
+
+        yorumButonu.addEventListener("click", function() {
+            window.location.href =
+                "yorumlar.html?id=" + encodeURIComponent(arac.id);
+        });
+
+        const duzenleButonu = elemanOlustur(
+            "button",
+            "Araç Bilgilerini Düzenle",
+            "islem-buton"
+        );
+
+        duzenleButonu.type = "button";
+        duzenleButonu.addEventListener(
+            "click",
+            duzenlemeFormunuGoster
+        );
+
+        const geri = elemanOlustur(
+            "a",
+            "Araç Listesine Dön",
+            "geri-buton"
+        );
+
+        geri.href = "araclar.html";
+
+        alan.append(
+            resim,
+            baslik,
+            bilgiler,
+            fiyat,
+            kira,
+            mesajButonu,
+            yorumButonu,
+            duzenleButonu,
+            geri
+        );
+    }
+
+    function duzenlemeFormunuGoster() {
+        const arac = aracBul();
+        if (!arac) return;
+
+        const eskiForm = document.getElementById("duzenleFormu");
+        if (eskiForm) eskiForm.remove();
+
+        const form = document.createElement("form");
+        form.id = "duzenleFormu";
+        form.className = "duzenle-formu";
+
+        form.appendChild(
+            elemanOlustur("h2", "Araç Bilgilerini Düzenle")
+        );
+
+        function alanEkle(id, etiketMetni, deger, tip, min) {
+            const etiket = document.createElement("label");
+            etiket.htmlFor = id;
+            etiket.textContent = etiketMetni;
+
+            const input = document.createElement("input");
+            input.id = id;
+            input.type = tip;
+            input.value = deger == null ? "" : deger;
+            input.required = true;
+
+            if (min !== undefined) {
+                input.min = min;
+            }
+
+            form.append(etiket, input);
+            return input;
+        }
+
+        alanEkle("duzMarka", "Marka", arac.marka, "text");
+        alanEkle("duzModel", "Model", arac.model, "text");
+        alanEkle("duzPlaka", "Araç Plakası", arac.plaka, "text");
+        alanEkle("duzYil", "Model Yılı", arac.yil, "number", "1900");
+        alanEkle("duzKm", "Kilometre", arac.km, "number", "0");
+        alanEkle(
+            "duzFiyat",
+            "Satış Fiyatı (TL)",
+            arac.fiyat,
+            "number",
+            "1"
+        );
+        alanEkle(
+            "duzKira",
+            "Günlük Kira Bedeli (TL)",
+            arac.gunlukKira,
+            "number",
+            "1"
+        );
+
+        const resimEtiketi = document.createElement("label");
+        resimEtiketi.htmlFor = "duzResim";
+        resimEtiketi.textContent =
+            "Yeni Araç Fotoğrafı (İsteğe bağlı)";
+
+        const resimInput = document.createElement("input");
+        resimInput.id = "duzResim";
+        resimInput.type = "file";
+        resimInput.accept = "image/*";
+
+        form.append(resimEtiketi, resimInput);
+
+        const kaydet = elemanOlustur(
+            "button",
+            "Değişiklikleri Kaydet",
+            "islem-buton kaydet-buton"
+        );
+        kaydet.type = "submit";
+
+        const iptal = elemanOlustur(
+            "button",
+            "İptal",
+            "islem-buton"
+        );
+        iptal.type = "button";
+        iptal.addEventListener("click", detayGoster);
+
+        const mesaj = elemanOlustur("p", "");
+        mesaj.id = "duzenlemeMesaji";
+
+        form.append(kaydet, iptal, mesaj);
+        alan.appendChild(form);
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const plaka = document.getElementById("duzPlaka")
+                .value.trim().toLocaleUpperCase("tr-TR");
+
+            if (!plaka) {
+                alert("Lütfen araç plakasını gir.");
+                return;
+            }
+
+            const kayitliAraclar = araclariGetir();
+
+            const ayniPlaka = kayitliAraclar.some(function(a) {
+                return String(a.id) !== String(aracId) &&
+                    a.plaka &&
+                    a.plaka.replace(/\s/g, "").toLocaleUpperCase("tr-TR") ===
+                    plaka.replace(/\s/g, "");
+            });
+
+            if (ayniPlaka) {
+                alert("Bu plaka başka bir araca kayıtlı!");
+                return;
+            }
+
+            const guncelArac = {
+                ...arac,
+                marka: document.getElementById("duzMarka").value.trim(),
+                model: document.getElementById("duzModel").value.trim(),
+                plaka: plaka,
+                yil: document.getElementById("duzYil").value,
+                km: document.getElementById("duzKm").value,
+                fiyat: document.getElementById("duzFiyat").value,
+                gunlukKira: document.getElementById("duzKira").value
+            };
+
+            if (
+                !guncelArac.marka ||
+                !guncelArac.model ||
+                Number(guncelArac.yil) < 1900 ||
+                Number(guncelArac.yil) > 2100 ||
+                Number(guncelArac.km) < 0 ||
+                Number(guncelArac.fiyat) <= 0 ||
+                Number(guncelArac.gunlukKira) <= 0
+            ) {
+                alert("Lütfen bütün bilgileri doğru şekilde doldur.");
+                return;
+            }
+
+            function kaydetAraci(resimVerisi) {
+                if (resimVerisi) {
+                    guncelArac.resim = resimVerisi;
+                }
+
+                try {
+                    const liste = araclariGetir();
+
+                    const indeks = liste.findIndex(function(a) {
+                        return String(a.id) === String(aracId);
+                    });
+
+                    if (indeks >= 0) {
+                        liste[indeks] = guncelArac;
+                    } else {
+                        liste.push(guncelArac);
+                    }
+
+                    localStorage.setItem(
+                        "araclar",
+                        JSON.stringify(liste)
+                    );
+
+                    alert("Araç bilgileri başarıyla güncellendi!");
+                    detayGoster();
+                } catch (hata) {
+                    alert(
+                        "Bilgiler kaydedilemedi. Daha küçük bir fotoğraf dene."
+                    );
+                }
+            }
+
+            const dosya = resimInput.files[0];
+
+            if (dosya) {
+                if (!dosya.type.startsWith("image/")) {
+                    alert("Lütfen geçerli bir fotoğraf seç.");
+                    return;
+                }
+
+                const okuyucu = new FileReader();
+
+                okuyucu.onload = function() {
+                    kaydetAraci(okuyucu.result);
+                };
+
+                okuyucu.onerror = function() {
+                    alert("Fotoğraf okunamadı.");
+                };
+
+                okuyucu.readAsDataURL(dosya);
+            } else {
+                kaydetAraci(null);
+            }
+        });
+    }
+
+    detayGoster();
+</script>
+</body>
+</html>

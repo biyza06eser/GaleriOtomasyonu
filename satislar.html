@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satış Yönetimi | Galeri Otomasyonu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="ana-header">
+    <h1>SATIŞ YÖNETİMİ</h1>
+
+    <nav>
+        <a href="index.html">Ana Sayfa</a> |
+        <a href="araclar.html">Araçlar</a> |
+        <a href="arac-ekle.html">Araç Ekle</a> |
+        <a href="musteriler.html">Müşteriler</a> |
+        <a href="satislar.html">Satışlar</a> |
+        <a href="aboneler.html">Aboneler</a> |
+        <a href="kiralamalar.html">Kiralamalar</a>
+    </nav>
+    </header>
+
+    <section class="arac-bolumu">
+        <h2>Yeni Satış Kaydı</h2>
+        <p>Satılan aracı ve müşteriyi seçerek satış kaydı oluşturabilirsin.</p>
+
+        <form id="satisFormu">
+            <label for="satisArac">Satılacak Araç:</label>
+            <select id="satisArac" required>
+                <option value="">Araç seçiniz</option>
+            </select>
+
+            <br><br>
+
+            <label for="satisMusteri">Müşteri:</label>
+            <select id="satisMusteri" required>
+                <option value="">Müşteri seçiniz</option>
+            </select>
+
+            <br><br>
+
+            <label for="satisFiyat">Satış Fiyatı (TL):</label>
+            <input type="number" id="satisFiyat" min="1" required
+                   placeholder="Satış fiyatını giriniz">
+
+            <br><br>
+
+            <label for="satisTarih">Satış Tarihi:</label>
+            <input type="date" id="satisTarih" required>
+
+            <br><br>
+
+            <button type="submit">Satışı Kaydet</button>
+        </form>
+
+        <h2>Geçmiş Satışlar</h2>
+        <div id="satisListesi"></div>
+    </section>
+
+<script>
+const satisArac = document.getElementById("satisArac");
+const satisMusteri = document.getElementById("satisMusteri");
+const satisFormu = document.getElementById("satisFormu");
+const satisListesi = document.getElementById("satisListesi");
+
+
+function secenekleriDoldur() {
+    const kayitliAraclar =
+        JSON.parse(localStorage.getItem("araclar") || "[]");
+
+    const satislar =
+        JSON.parse(localStorage.getItem("satislar") || "[]");
+
+    const satilanAracIdleri = satislar.map(function(satis) {
+        return String(satis.aracId);
+    });
+
+    const satilmayanAraclar = kayitliAraclar.filter(function(arac) {
+        return !satilanAracIdleri.includes(String(arac.id));
+    });
+
+    satisArac.innerHTML = '<option value="">Araç seçiniz</option>';
+
+    satilmayanAraclar.forEach(function(arac) {
+        const secenek = document.createElement("option");
+        secenek.value = String(arac.id);
+        secenek.textContent =
+            arac.marka + " " + arac.model + " - " +
+            Number(arac.fiyat || 0).toLocaleString("tr-TR") + " TL";
+
+        satisArac.appendChild(secenek);
+    });
+
+    const musteriler =
+        JSON.parse(localStorage.getItem("musteriler") || "[]");
+
+    satisMusteri.innerHTML = '<option value="">Müşteri seçiniz</option>';
+
+    musteriler.forEach(function(musteri) {
+        const secenek = document.createElement("option");
+        secenek.value = String(musteri.id);
+        secenek.textContent = musteri.adSoyad;
+        satisMusteri.appendChild(secenek);
+    });
+}
+
+// Satışları göster
+function satislariGoster() {
+    const satislar =
+        JSON.parse(localStorage.getItem("satislar")) || [];
+
+    satisListesi.innerHTML = "";
+
+    if (satislar.length === 0) {
+        satisListesi.textContent = "Henüz satış kaydı bulunmuyor.";
+        return;
+    }
+
+    satislar.forEach(function(satis) {
+        const kart = document.createElement("div");
+        kart.className = "arac-karti";
+
+        const baslik = document.createElement("h3");
+        baslik.textContent = satis.aracAdi;
+
+        const musteri = document.createElement("p");
+        musteri.textContent = "Müşteri: " + satis.musteriAdi;
+
+        const fiyat = document.createElement("p");
+        fiyat.textContent =
+            "Satış fiyatı: " +
+            Number(satis.fiyat).toLocaleString("tr-TR") + " TL";
+
+        const tarih = document.createElement("p");
+        tarih.textContent = "Satış tarihi: " + satis.tarih;
+
+        kart.append(baslik, musteri, fiyat, tarih);
+        satisListesi.appendChild(kart);
+    });
+}
+
+// Seçilen aracın fiyatını otomatik doldur
+satisArac.addEventListener("change", function() {
+    const kayitliAraclar =
+        JSON.parse(localStorage.getItem("araclar")) || [];
+
+    const arac = kayitliAraclar.find(function(arac) {
+        return String(arac.id) === String(satisArac.value);
+    });
+
+    if (arac) {
+        document.getElementById("satisFiyat").value =
+            Number(arac.fiyat || 0);
+    }
+});
+
+satisFormu.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const aracId = satisArac.value;
+    const musteriId = satisMusteri.value;
+
+    const kayitliAraclar =
+        JSON.parse(localStorage.getItem("araclar") || "[]");
+
+    const musteriler =
+        JSON.parse(localStorage.getItem("musteriler") || "[]");
+
+    const arac = kayitliAraclar.find(function(a) {
+        return a.id != null &&
+            String(a.id) === String(aracId);
+    });
+
+    const musteri = musteriler.find(function(m) {
+        return m.id != null &&
+            String(m.id) === String(musteriId);
+    });
+
+    if (!aracId || !musteriId) {
+        alert("Lütfen araç ve müşteri seçiniz.");
+        return;
+    }
+
+    if (!arac) {
+        alert("Araç kaydı bulunamadı. Lütfen sayfayı yenileyip tekrar deneyin.");
+        console.log("Seçilen araç ID:", aracId);
+        console.log("Kayıtlı araçlar:", kayitliAraclar);
+        return;
+    }
+
+    if (!musteri) {
+        alert("Müşteri kaydı bulunamadı. Müşteriler sayfasını kontrol edin.");
+        return;
+    }
+
+    const satislar =
+        JSON.parse(localStorage.getItem("satislar") || "[]");
+
+    const zatenSatilmis = satislar.some(function(satis) {
+        return String(satis.aracId) === String(aracId);
+    });
+
+    if (zatenSatilmis) {
+        alert("Bu araç daha önce satılmış!");
+        secenekleriDoldur();
+        return;
+    }
+
+    satislar.push({
+        id: Date.now().toString(),
+        aracId: arac.id,
+        aracAdi: arac.marka + " " + arac.model,
+        musteriId: musteri.id,
+        musteriAdi: musteri.adSoyad,
+        fiyat: document.getElementById("satisFiyat").value,
+        tarih: document.getElementById("satisTarih").value
+    });
+
+    localStorage.setItem("satislar", JSON.stringify(satislar));
+
+    satisFormu.reset();
+    secenekleriDoldur();
+    satislariGoster();
+
+    alert("Satış kaydı başarıyla oluşturuldu!");
+
+});
+
+// Sayfa açıldığında listeleri yükle
+secenekleriDoldur();
+satislariGoster();
+</script>
+
+</body>
+</html>
+
